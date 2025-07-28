@@ -22,7 +22,9 @@ files = [
     {
         "url": "https://github.com/free18/v2ray/blob/main/c.yaml",
     },
-
+    {
+        "url": "https://github.com/Flikify/Free-Node/blob/main/clash.yaml",
+    },
 
 
 ]
