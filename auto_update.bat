@@ -1,5 +1,5 @@
 @echo off
-REM 进入python目录
+REM 进入python目录  运行脚本 .\auto_update.bat
 cd /d %~dp0clash
 
 REM 运行Neat.py
