@@ -60,3 +60,25 @@ def main():
 if __name__ == "__main__":
     main() 
 
+    # 自动更新 index.html 的更新时间（带调试输出）
+    from datetime import datetime
+    import re
+    html_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'index.html'))
+    print("尝试写入更新时间到：", html_path)
+    now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    try:
+        with open(html_path, 'r', encoding='utf-8') as f:
+            html = f.read()
+        if 'id="update-time"' in html:
+            html = re.sub(r'<div id="update-time">.*?</div>', f'<div id="update-time">更新时间：{now}</div>', html, flags=re.DOTALL)
+        else:
+            html = html.replace(
+                '<header>',
+                '<header>\n        <div id="update-time">更新时间：{}</div>'.format(now)
+            )
+        with open(html_path, 'w', encoding='utf-8') as f:
+            f.write(html)
+        print("更新时间写入成功！")
+    except Exception as e:
+        print("写入 index.html 失败：", e) 
+
