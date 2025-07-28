@@ -6,13 +6,33 @@ import os
 files = [
 
     {
-        "url": "https://github.com/ID-10086/freenode/blob/main/clashtest.yml",
+        "url": "https://github.com/Barabama/FreeNodes/blob/main/nodes/blues.yaml",
     },
+     {
+        "url": "https://github.com/Barabama/FreeNodes/blob/main/nodes/clashmeta.yaml",
+    },  
+     {
+        "url": "https://github.com/Barabama/FreeNodes/blob/main/nodes/ndnode.yaml",
+    },   
+
+      {
+        "url": "https://github.com/Barabama/FreeNodes/blob/main/nodes/nodefree.yaml",
+    },    
+
+    {
+        "url": "https://github.com/Barabama/FreeNodes/blob/main/nodes/nodev2ray.yaml",
+    },
+    {
+        "url": "https://github.com/Barabama/FreeNodes/blob/main/nodes/v2rayshare.yaml",
+    },
+     {
+        "url": "https://github.com/Barabama/FreeNodes/blob/main/nodes/wenode.yaml",
+    },
+     {
+        "url": "https://github.com/Barabama/FreeNodes/blob/main/nodes/yudou66.yaml",
+    },      
     {
         "url": "https://github.com/free18/v2ray/blob/main/c.yaml",
-    },
-    {
-        "url": "https://github.com/Flikify/Free-Node/blob/main/clash.yaml",
     },
 
 
