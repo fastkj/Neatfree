@@ -1,6 +1,6 @@
 @echo off
 REM 进入python目录
-cd /d %~dp0python
+cd /d %~dp0clash
 
 REM 运行Neat.py
 python Neat.py
