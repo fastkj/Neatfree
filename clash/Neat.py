@@ -16,7 +16,9 @@ files = [
     {
         "url": "https://github.com/free18/v2ray/blob/main/c.yaml",
     },
-
+    {
+        "url": "https://github.com/dongchengjie/airport/blob/main/config.yaml",
+    },
 
 ]
 
