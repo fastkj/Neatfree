@@ -4,18 +4,7 @@ import os
 
 # 需要下载的文件及其原始GitHub链接
 files = [
-    {
-        "url": "https://github.com/free-nodes/clashfree/blob/main/clash.yml",
-    },
-    {
-        "url": "https://github.com/chengaopan/AutoMergePublicNodes/blob/master/config.yml",
-    },
-    {
-        "url": "https://github.com/ID-10086/freenode/blob/main/adiclash.yml",
-    },
-    {
-        "url": "https://github.com/ID-10086/freenode/blob/main/adispeed.yml",
-    },
+
     {
         "url": "https://github.com/ID-10086/freenode/blob/main/clashtest.yml",
     },
@@ -55,6 +44,16 @@ def download_file(url, filename, save_dir="."):
 
 def main():
     save_dir = os.path.dirname(os.path.abspath(__file__))
+
+    # 先删除多余的 Neat_configX.yml 文件
+    existing = [f for f in os.listdir(save_dir) if f.startswith("Neat_config") and f.endswith(".yml")]
+    needed = [f"Neat_config{idx}.yml" for idx in range(1, len(files)+1)]
+    for f in existing:
+        if f not in needed:
+            os.remove(os.path.join(save_dir, f))
+            print(f"已删除多余文件: {f}")
+
+    # 正常下载
     for idx, file in enumerate(files, start=1):
         filename = f"Neat_config{idx}.yml"
         download_file(file["url"], filename, save_dir)
