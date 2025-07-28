@@ -4,33 +4,15 @@ import os
 
 # 需要下载的文件及其原始GitHub链接
 files = [
-
     {
-        "url": "https://github.com/Barabama/FreeNodes/blob/main/nodes/blues.yaml",
-    },
-     {
-        "url": "https://github.com/Barabama/FreeNodes/blob/main/nodes/clashmeta.yaml",
-    },  
-     {
-        "url": "https://github.com/Barabama/FreeNodes/blob/main/nodes/ndnode.yaml",
-    },   
-
-      {
         "url": "https://github.com/Barabama/FreeNodes/blob/main/nodes/nodefree.yaml",
-    },    
-
-    {
-        "url": "https://github.com/Barabama/FreeNodes/blob/main/nodes/nodev2ray.yaml",
-    },
+    }, 
     {
         "url": "https://github.com/Barabama/FreeNodes/blob/main/nodes/v2rayshare.yaml",
     },
-     {
-        "url": "https://github.com/Barabama/FreeNodes/blob/main/nodes/wenode.yaml",
-    },
-     {
-        "url": "https://github.com/Barabama/FreeNodes/blob/main/nodes/yudou66.yaml",
-    },      
+    {
+        "url": "https://github.com/Barabama/FreeNodes/blob/main/nodes/ndnode.yaml",
+    },  
     {
         "url": "https://github.com/free18/v2ray/blob/main/c.yaml",
     },
