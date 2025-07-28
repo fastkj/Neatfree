@@ -84,3 +84,33 @@ if __name__ == "__main__":
     except Exception as e:
         print("写入 index.html 失败：", e) 
 
+    # 自动生成订阅源卡片并写入 index.html
+    try:
+        with open(html_path, 'r', encoding='utf-8') as f:
+            html = f.read()
+        cards = []
+        for idx, _ in enumerate(files, start=1):
+            cards.append(f'''
+<div class="glass-card">
+  <h2>Clash 订阅源 {idx}</h2>
+  <pre id="sub{idx}">https://clash.fastkj.eu.org/clash/Neat_config{idx}.yml</pre>
+  <button class="btn" onclick="copyToClipboard('sub{idx}')">复制Clash 订阅源</button>
+</div>
+''')
+        cards_html = '\n'.join(cards)
+        import re
+        html, n = re.subn(
+            r'<!-- SUBSCRIPTION_START -->(.*?)<!-- SUBSCRIPTION_END -->',
+            f'<!-- SUBSCRIPTION_START -->\n{cards_html}\n<!-- SUBSCRIPTION_END -->',
+            html,
+            flags=re.DOTALL
+        )
+        if n == 0:
+            print("未找到订阅源标记区域，未写入卡片。请检查 index.html 是否有正确的标记。")
+        else:
+            with open(html_path, 'w', encoding='utf-8') as f:
+                f.write(html)
+            print(f"已自动生成 {len(files)} 个订阅源卡片！")
+    except Exception as e:
+        print("写入订阅源卡片失败：", e) 
+
