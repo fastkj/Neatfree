@@ -5,6 +5,23 @@ import os
 # 需要下载的文件及其原始GitHub链接
 files = [
     {
+        "url": "https://github.com/dongchengjie/airport/blob/main/subs/merged/merged.yaml",
+    },  
+    {
+        "url": "https://raw.githubusercontent.com/snakem982/proxypool/main/source/clash-meta.yaml",
+    }, 
+    {
+        "url": "https://raw.githubusercontent.com/snakem982/proxypool/main/source/clash-meta-2.yaml",
+    },   
+    {
+        "url": "https://github.com/snakem982/proxypool/blob/main/source/clash-meta.yaml",
+    },   
+    
+    {
+        "url": "https://github.com/snakem982/proxypool/blob/main/source/clash-meta-2.yaml",
+    },  
+
+    {
         "url": "https://github.com/Barabama/FreeNodes/blob/main/nodes/nodefree.yaml",
     }, 
     {
@@ -19,7 +36,14 @@ files = [
     {
         "url": "https://github.com/dongchengjie/airport/blob/main/config.yaml",
     },
+    {
+        "url": "https://github.com/dongchengjie/airport/blob/main/subs/merged/tested_within.yaml",
+    },
 
+    
+    # {
+    #     "url": "",
+    # },        
 ]
 
 def github_raw_url(github_url):

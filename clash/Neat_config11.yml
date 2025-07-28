@@ -1,0 +1,655 @@
+# 混合端口
+mixed-port: 7890
+# 局域网访问控制(白名单/黑名单)
+allow-lan: true
+lan-allowed-ips: ["0.0.0.0/0", "::/0"]
+lan-disallowed-ips: []
+# 运行模式
+mode: rule
+# 日志级别
+log-level: info
+# 接受IPv6流量
+ipv6: true
+# 外部控制监听地址、访问密钥
+external-controller: 0.0.0.0:9090
+secret: ""
+# 延迟计算去除握手等额外延迟
+unified-delay: false
+# TCP并发
+tcp-concurrent: true
+# 全局客户端指纹(支持VLESS,VMess,Trojan)
+global-client-fingerprint: chrome
+# 下载外部资源(proxy-provider、rule-provider、GEO等)使用的UA
+global-ua: clash.meta
+
+# DNS配置
+domestic_nameservers: &domestic_nameservers
+  - https://dns.alidns.com/dns-query # 阿里云公共DNS
+  - https://doh.pub/dns-query # 腾讯DNSPod
+  - https://doh.360.cn/dns-query # 360安全DNS
+foreign_nameservers: &foreign_nameservers
+  - https://1.1.1.1/dns-query # Cloudflare(主)
+  - https://1.0.0.1/dns-query # Cloudflare(备)
+  - https://208.67.222.222/dns-query # OpenDNS(主)
+  - https://208.67.220.220/dns-query # OpenDNS(备)
+  - https://194.242.2.2/dns-query # Mullvad(主)
+  - https://194.242.2.3/dns-query # Mullvad(备)
+dns:
+  enable: true
+  ipv6: true
+  use-system-hosts: false
+  cache-algorithm: arc
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  fake-ip-filter:
+    [
+      "+.lan",
+      "+.local",
+      "+.msftconnecttest.com",
+      "+.msftncsi.com",
+      "localhost.ptlogin2.qq.com",
+      "localhost.sec.qq.com",
+      "localhost.work.weixin.qq.com",
+    ]
+  default-nameserver: ["223.5.5.5", "119.29.29.29", "1.1.1.1", "8.8.8.8"]
+  nameserver: *domestic_nameservers
+  proxy-server-nameserver: *domestic_nameservers
+  nameserver-policy:
+    "+.mirror.ghproxy.com": *foreign_nameservers
+    "geosite:private,cn,geolocation-cn": *domestic_nameservers
+    "geosite:google,youtube,telegram,gfw,geolocation-!cn": *foreign_nameservers
+
+# GEO自动更新、更新间隔(单位: 小时)、更新下载地址
+geo-auto-update: true
+geo-update-interval: 48
+geox-url:
+  geoip: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.dat
+  geosite: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat
+  mmdb: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/country.mmdb
+  asn: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/GeoLite2-ASN.mmdb
+
+# 代理列表
+proxies: 
+  - {"name":"🇯🇵 日本_1","server":"cu.awslcn.info","port":"25278","type":"vmess","uuid":"4e1704e8-991d-43c6-bbe0-823602c17872","alterId":"0","cipher":"auto","tls":false,"network":"ws","ws-opts":{"path":"/","headers":{"Host":"cu.awslcn.info"}},"udp":true}
+  - {"name":"🇺🇸 美国_1","server":"137.184.36.36","port":"25231","type":"hysteria2","password":"V9o2mn4BwochLNk4XkJobx0bY","auth":"V9o2mn4BwochLNk4XkJobx0bY","sni":"bing.com","skip-cert-verify":true,"udp":true}
+  - {"name":"❓ 未知_1","server":"210.222.30.180","port":"10017","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":true,"network":"ws","ws-opts":{"path":"/Telegram@WangCai2/","headers":{"Host":"jp.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"jp.laoyoutiao.link"}
+  - {"name":"🇳🇱 荷兰_1","server":"yapc-1.adamhayward.co.uk","port":"36600","type":"hysteria2","password":"Yet-Another-Public-Config-1","auth":"Yet-Another-Public-Config-1","sni":"YAPC-1.afshin.ir","skip-cert-verify":false,"obfs":"salamander","obfs-password":"Yet-Another-Public-Config-1","udp":true}
+  - {"name":"❓ 未知_2","server":"185.18.250.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_3","server":"91.193.58.210","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":true,"network":"ws","ws-opts":{"path":"/Telegram@WangCai2/","headers":{"Host":"kjgx.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"kjgx.laoyoutiao.link"}
+  - {"name":"❓ 未知_4","server":"91.193.58.80","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":true,"network":"ws","ws-opts":{"path":"/Telegram@WangCai2/","headers":{"Host":"kjgx.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"kjgx.laoyoutiao.link"}
+  - {"name":"❓ 未知_5","server":"185.148.107.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_6","server":"92.53.188.213","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/","headers":{"Host":"jp.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"jp.laoyoutiao.link"}
+  - {"name":"❓ 未知_7","server":"135.84.76.63","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"client-fingerprint":"chrome","network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"jp.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"jp.laoyoutiao.link"}
+  - {"name":"❓ 未知_8","server":"74.49.214.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_9","server":"185.159.247.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_10","server":"45.80.111.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"🇺🇸 美国_2","server":"91.193.58.89","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":true,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @MxlShare @WangCai2 /","headers":{"Host":"us.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"us.laoyoutiao.link"}
+  - {"name":"❓ 未知_11","server":"185.18.250.177","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"client-fingerprint":"chrome","network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_12","server":"5.10.214.213","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/","headers":{"Host":"jp.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"jp.laoyoutiao.link"}
+  - {"name":"❓ 未知_13","server":"195.26.229.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_14","server":"25.129.197.186","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_15","server":"185.251.82.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"🇰🇷 韩国_1","server":"92.243.75.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_16","server":"103.169.142.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_17","server":"193.124.224.63","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram@V2ray_Alpha/","headers":{"Host":"jp.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2048"},"udp":true,"servername":"jp.laoyoutiao.link"}
+  - {"name":"❓ 未知_18","server":"188.42.88.213","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/","headers":{"Host":"jp.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"jp.laoyoutiao.link"}
+  - {"name":"❓ 未知_19","server":"114.129.43.186","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_20","server":"103.245.228.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_21","server":"194.36.55.156","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"kjgx.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_22","server":"45.149.12.186","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/TelegramğŸ‡¨ğŸ‡³ @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"🇨🇦 加拿大_1","server":"139.64.235.177","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"client-fingerprint":"chrome","network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_23","server":"195.26.229.213","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/","headers":{"Host":"jp.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"jp.laoyoutiao.link"}
+  - {"name":"🇳🇱 荷兰_2","server":"51.159.226.1","port":"14241","type":"hysteria","auth_str":"dongtaiwang.com","auth-str":"dongtaiwang.com","up":"100","down":"100","protocol":"udp","sni":"apple.com","skip-cert-verify":true,"alpn":["h3"],"udp":true}
+  - {"name":"🇨🇦 加拿大_2","server":"94.247.142.186","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/TelegramğŸ‡¨ğŸ‡³ @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"🇨🇦 加拿大_3","server":"185.221.160.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_24","server":"89.116.180.156","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"kjgx.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_25","server":"168.100.6.186","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_26","server":"185.238.228.213","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/","headers":{"Host":"jp.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"jp.laoyoutiao.link"}
+  - {"name":"❓ 未知_27","server":"74.49.215.186","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_28","server":"212.183.88.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_29","server":"159.112.235.168","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"network":"ws","ws-opts":{"path":"/Telegram@WangCai2/","headers":{"Host":"kjgx.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"kjgx.laoyoutiao.link"}
+  - {"name":"🇰🇷 韩国_2","server":"66.45.118.186","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_30","server":"91.193.58.66","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":true,"network":"ws","ws-opts":{"path":"/Telegram@WangCai2/","headers":{"Host":"kjgx.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"kjgx.laoyoutiao.link"}
+  - {"name":"🇸🇬 新加坡_1","server":"156.238.18.219","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"network":"ws","ws-opts":{"path":"/Telegram@WangCai2/","headers":{"Host":"sg.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2048"},"udp":true}
+  - {"name":"🇺🇸 美国_3","server":"91.193.58.183","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @MxlShare @WangCai2 /","headers":{"Host":"us.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"us.laoyoutiao.link"}
+  - {"name":"❓ 未知_31","server":"212.183.88.156","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"kjgx.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_32","server":"89.116.250.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_33","server":"91.193.58.207","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @MxlShare @WangCai2 /","headers":{"Host":"us.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"us.laoyoutiao.link"}
+  - {"name":"❓ 未知_34","server":"91.193.58.94","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":true,"network":"ws","ws-opts":{"path":"/Telegram@WangCai2/","headers":{"Host":"kjgx.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"kjgx.laoyoutiao.link"}
+  - {"name":"❓ 未知_35","server":"25.25.25.186","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"ip.langmanshanxi.top"}
+  - {"name":"🇯🇵 日本_2","server":"185.251.81.63","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"client-fingerprint":"chrome","network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"jp.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"jp.laoyoutiao.link"}
+  - {"name":"🇺🇸 美国_4","server":"147.185.161.251","port":"8880","type":"vless","uuid":"0132166f-e702-48ed-a9e7-b07af768faf8","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"cf.d3z.net"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"🇨🇦 加拿大_4","server":"66.81.247.186","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_36","server":"103.169.142.186","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/TelegramğŸ‡¨ğŸ‡³ @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_37","server":"188.42.89.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_38","server":"194.36.55.63","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"client-fingerprint":"chrome","network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"jp.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"jp.laoyoutiao.link"}
+  - {"name":"❓ 未知_39","server":"147.185.161.156","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"kjgx.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"🇩🇪 德国","server":"159.246.55.6","port":"8880","type":"vless","uuid":"e9979910-79d1-4621-a93c-b2a579c44ba7","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Etb1L6YUdZFZuTOr","headers":{"Host":"VngSuPpLY.IP-DdnS.com"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"VngSuPpLY.IP-DdnS.com"}
+  - {"name":"❓ 未知_40","server":"103.245.229.186","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_41","server":"103.169.142.177","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"client-fingerprint":"chrome","network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_42","server":"89.117.112.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_43","server":"154.83.2.156","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"kjgx.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_44","server":"185.18.250.213","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/","headers":{"Host":"jp.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"jp.laoyoutiao.link"}
+  - {"name":"❓ 未知_45","server":"162.120.94.63","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"client-fingerprint":"chrome","network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"jp.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"jp.laoyoutiao.link"}
+  - {"name":"🇳🇱 荷兰_3","server":"yapc-1.adamhayward.co.uk","port":"35000","type":"hysteria2","password":"Yet-Another-Public-Config-1","auth":"Yet-Another-Public-Config-1","sni":"YAPC-1.afshin.ir","obfs":"salamander","obfs-password":"Yet-Another-Public-Config-1","udp":true}
+  - {"name":"❓ 未知_46","server":"89.116.161.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_47","server":"140.99.233.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_48","server":"192.65.217.177","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"client-fingerprint":"chrome","network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_49","server":"92.53.189.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_50","server":"74.49.215.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_51","server":"194.36.55.213","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/","headers":{"Host":"jp.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"jp.laoyoutiao.link"}
+  - {"name":"❓ 未知_52","server":"160.79.104.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"🇨🇦 加拿大_5","server":"199.181.197.177","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_53","server":"154.83.2.213","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/","headers":{"Host":"jp.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"jp.laoyoutiao.link"}
+  - {"name":"❓ 未知_54","server":"156.238.18.222","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @MxlShare @WangCai2 /","headers":{"Host":"us.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true}
+  - {"name":"🇨🇦 加拿大_6","server":"45.153.7.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_55","server":"94.140.0.156","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"kjgx.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"🇭🇰 香港_1","server":"40e76311-t064g0-t1j6p5-1j0a4.hk.p5pv.com","port":"80","type":"vmess","uuid":"4eedcde6-d16a-11ef-973a-f23c913c8d2b","alterId":"2","cipher":"auto","tls":false,"network":"ws","ws-opts":{"path":"/","headers":{"Host":"broadcastlv.chat.bilibili.com"}},"udp":true}
+  - {"name":"❓ 未知_56","server":"45.80.111.168","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram@WangCai2/","headers":{"Host":"kjgx.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"kjgx.laoyoutiao.link"}
+  - {"name":"❓ 未知_57","server":"135.84.73.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_58","server":"25.129.196.213","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/","headers":{"Host":"jp.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"jp.laoyoutiao.link"}
+  - {"name":"❓ 未知_59","server":"91.193.58.21","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram@WangCai2/","headers":{"Host":"kjgx.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"kjgx.laoyoutiao.link"}
+  - {"name":"❓ 未知_60","server":"188.164.248.63","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"jp.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"jp.laoyoutiao.link"}
+  - {"name":"❓ 未知_61","server":"45.80.111.20","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @MxlShare @WangCai2 /","headers":{"Host":"us.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"us.laoyoutiao.link"}
+  - {"name":"🇰🇷 韩国_3","server":"69.84.182.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_62","server":"91.193.58.193","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram@WangCai2/","headers":{"Host":"kjgx.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"kjgx.laoyoutiao.link"}
+  - {"name":"❓ 未知_63","server":"91.193.58.85","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":true,"network":"ws","ws-opts":{"path":"/Telegram@WangCai2/","headers":{"Host":"kjgx.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"kjgx.laoyoutiao.link"}
+  - {"name":"❓ 未知_64","server":"205.233.181.213","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/","headers":{"Host":"jp.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"jp.laoyoutiao.link"}
+  - {"name":"❓ 未知_65","server":"199.181.197.186","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_66","server":"188.42.89.177","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"client-fingerprint":"chrome","network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_67","server":"92.53.188.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_68","server":"91.193.58.192","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @MxlShare @WangCai2 /","headers":{"Host":"us.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true}
+  - {"name":"❓ 未知_69","server":"195.13.55.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"🇨🇦 加拿大_7","server":"185.148.106.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_70","server":"130.250.137.177","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @xixv2ray /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"ip.langmanshanxi.top"}
+  - {"name":"❓ 未知_71","server":"185.176.24.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_72","server":"161.145.150.63","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"client-fingerprint":"chrome","network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"jp.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"jp.laoyoutiao.link"}
+  - {"name":"❓ 未知_73","server":"104.254.140.213","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/","headers":{"Host":"jp.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"jp.laoyoutiao.link"}
+  - {"name":"❓ 未知_74","server":"185.251.81.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_75","server":"91.193.58.77","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":true,"network":"ws","ws-opts":{"path":"/Telegram@WangCai2/","headers":{"Host":"kjgx.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"kjgx.laoyoutiao.link"}
+  - {"name":"❓ 未知_76","server":"91.193.58.127","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":true,"network":"ws","ws-opts":{"path":"/Telegram@WangCai2/","headers":{"Host":"kjgx.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"kjgx.laoyoutiao.link"}
+  - {"name":"❓ 未知_77","server":"45.159.217.63","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"client-fingerprint":"chrome","network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"jp.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"jp.laoyoutiao.link"}
+  - {"name":"❓ 未知_78","server":"154.85.99.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"🇫🇷 法国","server":"195.154.169.198","port":"989","type":"ss","cipher":"aes-256-cfb","password":"f8f7aCzcPKbsF8p3"}
+  - {"name":"🇸🇬 新加坡_2","server":"91.193.58.120","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram@WangCai2/","headers":{"Host":"kjgx.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"kjgx.laoyoutiao.link"}
+  - {"name":"🇺🇸 美国_5","server":"198.62.62.175","port":"8880","type":"vless","uuid":"e9979910-79d1-4621-a93c-b2a579c44ba7","tls":false,"network":"ws","ws-opts":{"path":"/J5aLQOY1R9ONWYCM","headers":{"Host":"vngsupply.ip-ddns.com"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"vngsupply.ip-ddns.com"}
+  - {"name":"❓ 未知_79","server":"167.68.4.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_80","server":"86.38.214.213","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/","headers":{"Host":"jp.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"jp.laoyoutiao.link"}
+  - {"name":"❓ 未知_81","server":"92.53.191.177","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"ip.langmanshanxi.top"}
+  - {"name":"🇭🇰 香港_2","server":"164e1d27-t049s0-t1p8ql-1t8q3.hkt.tcpbbr.net","port":"80","type":"vmess","uuid":"775baa4a-d75b-11ef-a11a-f23c913c8d2b","alterId":"0","cipher":"auto","tls":false,"network":"ws","ws-opts":{"path":"/","headers":{"Host":"broadcastlv.chat.bilibili.com"}},"udp":true}
+  - {"cipher":"aes-256-cfb","name":"🇻🇳 越南","password":"Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV","port":"38388","server":"103.186.154.26","tfo":false,"type":"ss","client-fingerprint":"chrome"}
+  - {"name":"❓ 未知_82","server":"31.43.179.156","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"kjgx.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"🇸🇬 新加坡_3","server":"91.193.58.111","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram@WangCai2/","headers":{"Host":"kjgx.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"kjgx.laoyoutiao.link"}
+  - {"name":"❓ 未知_83","server":"94.140.0.186","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_84","server":"185.174.138.213","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/","headers":{"Host":"jp.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"jp.laoyoutiao.link"}
+  - {"name":"❓ 未知_85","server":"199.181.197.156","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"kjgx.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"🇨🇦 加拿大_8","server":"94.247.142.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_86","server":"188.42.89.213","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/","headers":{"Host":"jp.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"jp.laoyoutiao.link"}
+  - {"name":"🇸🇬 新加坡_4","server":"91.193.58.189","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":true,"network":"ws","ws-opts":{"path":"/Telegram@WangCai2/","headers":{"Host":"kjgx.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"kjgx.laoyoutiao.link"}
+  - {"name":"❓ 未知_87","server":"104.254.140.177","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_88","server":"185.176.26.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_89","server":"77.105.163.186","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_90","server":"209.94.90.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_91","server":"92.53.188.186","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"🇸🇬 新加坡_5","server":"91.193.58.254","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":true,"network":"ws","ws-opts":{"path":"/Telegram@WangCai2/","headers":{"Host":"kjgx.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"kjgx.laoyoutiao.link"}
+  - {"name":"❓ 未知_92","server":"160.79.105.156","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"kjgx.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"🇺🇸 美国_6","server":"89.116.161.251","port":"8880","type":"vless","uuid":"0132166f-e702-48ed-a9e7-b07af768faf8","tls":false,"skip-cert-verify":true,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"cf.d3z.net"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"cf.d3z.net"}
+  - {"name":"❓ 未知_93","server":"185.193.31.63","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"client-fingerprint":"chrome","network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"jp.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"jp.laoyoutiao.link"}
+  - {"name":"❓ 未知_94","server":"185.251.83.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_95","server":"109.176.239.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"🇨🇦 加拿大_9","server":"91.124.127.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"🇺🇸 美国_7","server":"154.83.2.251","port":"8880","type":"vless","uuid":"0132166f-e702-48ed-a9e7-b07af768faf8","tls":false,"skip-cert-verify":true,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"cf.d3z.net"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"cf.d3z.net"}
+  - {"name":"❓ 未知_96","server":"92.243.74.156","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"kjgx.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"🇸🇬 新加坡_6","server":"188.164.248.168","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram@WangCai2/","headers":{"Host":"kjgx.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"kjgx.laoyoutiao.link"}
+  - {"name":"❓ 未知_97","server":"109.176.239.156","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"kjgx.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"🇭🇰 香港_3","server":"199.34.230.29","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @MxlShare @WangCai2 /","headers":{"Host":"hk.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"hk.laoyoutiao.link"}
+  - {"name":"❓ 未知_98","server":"141.11.202.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"🇨🇦 加拿大_10","server":"80.93.202.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_99","server":"160.79.105.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_100","server":"103.245.229.63","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"client-fingerprint":"chrome","network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"jp.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"jp.laoyoutiao.link"}
+  - {"name":"❓ 未知_101","server":"102.177.176.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_102","server":"80.93.202.186","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_103","server":"109.176.239.186","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_104","server":"45.80.110.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_105","server":"185.148.105.63","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"client-fingerprint":"chrome","network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"jp.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"jp.laoyoutiao.link"}
+  - {"name":"❓ 未知_106","server":"168.100.6.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_107","server":"66.81.247.63","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"client-fingerprint":"chrome","network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"jp.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"jp.laoyoutiao.link"}
+  - {"name":"❓ 未知_108","server":"185.148.104.168","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":true,"network":"ws","ws-opts":{"path":"/Telegram@WangCai2/","headers":{"Host":"kjgx.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"kjgx.laoyoutiao.link"}
+  - {"name":"❓ 未知_109","server":"45.8.211.63","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"client-fingerprint":"chrome","network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"jp.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"jp.laoyoutiao.link"}
+  - {"name":"🇨🇦 加拿大_11","server":"92.243.74.186","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_110","server":"63.141.128.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_111","server":"108.165.216.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"🇫🇮 芬兰","server":"185.148.104.141","port":"8880","type":"vless","uuid":"e9979910-79d1-4621-a93c-b2a579c44ba7","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Etb1L6YUdZFZuTOr","headers":{"Host":"VngSuPpLY.IP-DdnS.com"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"VngSuPpLY.IP-DdnS.com"}
+  - {"name":"❓ 未知_112","server":"46.254.92.186","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"🇨🇦 加拿大_12","server":"45.159.218.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"🇰🇷 韩国_4","server":"195.13.44.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_113","server":"89.116.161.156","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"kjgx.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_114","server":"45.159.217.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_115","server":"91.193.58.238","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":true,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @MxlShare @WangCai2 /","headers":{"Host":"us.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"us.laoyoutiao.link"}
+  - {"name":"❓ 未知_116","server":"5.10.214.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_117","server":"66.81.247.213","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/","headers":{"Host":"jp.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"jp.laoyoutiao.link"}
+  - {"name":"❓ 未知_118","server":"170.114.45.63","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"client-fingerprint":"chrome","network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"jp.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"jp.laoyoutiao.link"}
+  - {"name":"🇨🇦 加拿大_13","server":"103.133.1.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_119","server":"176.124.223.251","port":"8880","type":"vless","uuid":"0132166f-e702-48ed-a9e7-b07af768faf8","tls":false,"skip-cert-verify":true,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"cf.d3z.net"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"cf.d3z.net"}
+  - {"name":"🇺🇸 美国_8","server":"192.200.160.251","port":"8880","type":"vless","uuid":"0132166f-e702-48ed-a9e7-b07af768faf8","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"cf.d3z.net"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"cf.d3z.net"}
+  - {"name":"❓ 未知_120","server":"91.193.58.146","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram@WangCai2/","headers":{"Host":"kjgx.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"kjgx.laoyoutiao.link"}
+  - {"name":"❓ 未知_121","server":"5.182.85.177","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"client-fingerprint":"chrome","network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_122","server":"185.59.218.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_123","server":"92.243.75.186","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_124","server":"14.102.229.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_125","server":"199.34.229.63","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"client-fingerprint":"chrome","network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"jp.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"jp.laoyoutiao.link"}
+  - {"name":"❓ 未知_126","server":"91.193.58.60","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":true,"network":"ws","ws-opts":{"path":"/Telegram@WangCai2/","headers":{"Host":"kjgx.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"kjgx.laoyoutiao.link"}
+  - {"name":"🇨🇦 加拿大_14","server":"185.148.104.186","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_127","server":"159.112.235.63","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"client-fingerprint":"chrome","network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"jp.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"jp.laoyoutiao.link"}
+  - {"name":"🇨🇦 加拿大_15","server":"216.24.57.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_128","server":"216.24.57.168","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram@WangCai2/","headers":{"Host":"kjgx.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"kjgx.laoyoutiao.link"}
+  - {"name":"🇺🇸 美国_9","server":"141.193.213.52","port":"80","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @MxlShare @WangCai2 /","headers":{"Host":"us.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true}
+  - {"name":"🇸🇬 新加坡_7","server":"91.193.58.54","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram@WangCai2/","headers":{"Host":"kjgx.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"kjgx.laoyoutiao.link"}
+  - {"name":"❓ 未知_129","server":"176.124.223.213","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/","headers":{"Host":"jp.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"jp.laoyoutiao.link"}
+  - {"name":"🇨🇦 加拿大_16","server":"31.43.179.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_130","server":"92.243.74.177","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"client-fingerprint":"chrome","network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_131","server":"25.129.198.186","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_132","server":"45.67.215.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"🇰🇷 韩国_5","server":"154.83.2.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_133","server":"185.251.80.156","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"kjgx.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_134","server":"199.181.197.63","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"client-fingerprint":"chrome","network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"jp.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"jp.laoyoutiao.link"}
+  - {"name":"❓ 未知_135","server":"192.200.160.177","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"client-fingerprint":"chrome","network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"🇨🇦 加拿大_17","server":"77.37.33.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_136","server":"45.67.215.186","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_137","server":"46.254.92.177","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"client-fingerprint":"chrome","network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_138","server":"77.37.33.186","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_139","server":"91.193.58.100","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram@WangCai2/","headers":{"Host":"kjgx.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"kjgx.laoyoutiao.link"}
+  - {"name":"❓ 未知_140","server":"91.193.58.27","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram@WangCai2/","headers":{"Host":"kjgx.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"kjgx.laoyoutiao.link"}
+  - {"name":"❓ 未知_141","server":"159.246.55.213","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/","headers":{"Host":"jp.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"jp.laoyoutiao.link"}
+  - {"name":"❓ 未知_142","server":"205.233.181.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_143","server":"45.153.7.63","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"client-fingerprint":"chrome","network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"jp.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"jp.laoyoutiao.link"}
+  - {"name":"❓ 未知_144","server":"193.9.49.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_145","server":"195.13.55.213","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/","headers":{"Host":"jp.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"jp.laoyoutiao.link"}
+  - {"name":"❓ 未知_146","server":"161.145.150.156","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"kjgx.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_147","server":"185.251.82.63","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"client-fingerprint":"chrome","network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"jp.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"jp.laoyoutiao.link"}
+  - {"name":"❓ 未知_148","server":"31.43.179.168","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram@WangCai2/","headers":{"Host":"kjgx.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"kjgx.laoyoutiao.link"}
+  - {"name":"❓ 未知_149","server":"188.42.88.186","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_150","server":"114.129.43.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"🇰🇷 韩国_6","server":"193.9.49.177","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"client-fingerprint":"chrome","network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_151","server":"62.72.166.63","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"client-fingerprint":"chrome","network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"jp.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"jp.laoyoutiao.link"}
+  - {"name":"❓ 未知_152","server":"184.174.80.156","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"kjgx.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_153","server":"103.116.7.168","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"network":"ws","ws-opts":{"path":"/Telegram@WangCai2/","headers":{"Host":"kjgx.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"kjgx.laoyoutiao.link"}
+  - {"name":"❓ 未知_154","server":"46.254.93.63","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"client-fingerprint":"chrome","network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"jp.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"jp.laoyoutiao.link"}
+  - {"name":"🇨🇦 加拿大_18","server":"5.182.84.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_155","server":"199.34.230.177","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"client-fingerprint":"chrome","network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_156","server":"45.159.217.186","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"🇺🇸 美国_10","server":"188.164.248.251","port":"8880","type":"vless","uuid":"0132166f-e702-48ed-a9e7-b07af768faf8","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"cf.d3z.net"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"cf.d3z.net"}
+  - {"name":"❓ 未知_157","server":"156.238.18.112","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @MxlShare @WangCai2 /","headers":{"Host":"us.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true}
+  - {"name":"❓ 未知_158","server":"140.99.233.156","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"kjgx.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true}
+  - {"name":"❓ 未知_159","server":"156.238.18.200","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @MxlShare @WangCai2 /","headers":{"Host":"us.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true}
+  - {"name":"❓ 未知_160","server":"170.114.45.177","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"client-fingerprint":"chrome","network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_161","server":"141.11.203.177","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"client-fingerprint":"chrome","network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_162","server":"5.10.214.156","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"kjgx.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_163","server":"91.193.58.14","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":true,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳@WangCai2/","headers":{"Host":"tw.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2048"},"udp":true,"servername":"tw.laoyoutiao.link"}
+  - {"name":"❓ 未知_164","server":"160.79.105.213","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"network":"ws","ws-opts":{"path":"/","headers":{"Host":"jp.laoyoutiao.link"}},"udp":true}
+  - {"name":"❓ 未知_165","server":"185.251.80.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_166","server":"45.159.219.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_167","server":"185.148.107.177","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"client-fingerprint":"chrome","network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_168","server":"14.102.228.213","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/","headers":{"Host":"jp.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"jp.laoyoutiao.link"}
+  - {"name":"❓ 未知_169","server":"139.64.235.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_170","server":"188.244.122.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_171","server":"192.200.160.63","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"client-fingerprint":"chrome","network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"jp.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"jp.laoyoutiao.link"}
+  - {"name":"❓ 未知_172","server":"185.174.138.186","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"🇮🇪 爱尔兰","server":"185.16.110.3","port":"8880","type":"vless","uuid":"b5441b0d-2147-4898-8a6a-9b2c87f58382","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3","headers":{"Host":"bitget1.asdasd.click"}},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_173","server":"139.64.235.63","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"client-fingerprint":"chrome","network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"jp.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"jp.laoyoutiao.link"}
+  - {"name":"❓ 未知_174","server":"92.243.74.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_175","server":"195.13.45.251","port":"8880","type":"vless","uuid":"0132166f-e702-48ed-a9e7-b07af768faf8","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"cf.d3z.net"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"cf.d3z.net"}
+  - {"name":"❓ 未知_176","server":"91.193.58.16","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram@WangCai2/","headers":{"Host":"kjgx.laoyoutiao.link"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"kjgx.laoyoutiao.link"}
+  - {"name":"❓ 未知_177","server":"66.81.247.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_178","server":"14.102.229.177","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"client-fingerprint":"chrome","network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_179","server":"66.235.200.188","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳 @WangCai2 /","headers":{"Host":"ip.langmanshanxi.top"},"early-data-header-name":"Sec-WebSocket-Protocol","max-early-data":"2560"},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_180","server":"14.102.229.63","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"network":"ws","ws-opts":{"path":"/Telegram🇨🇳","headers":{"Host":"jp.laoyoutiao.link"}},"udp":true,"servername":"jp.laoyoutiao.link"}
+  - {"name":"❓ 未知_181","server":"91.193.58.98","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/","headers":{"Host":"tw.laoyoutiao.link"}},"udp":true,"servername":"tw.laoyoutiao.link"}
+  - {"name":"❓ 未知_182","server":"185.221.160.186","port":"8880","type":"vless","uuid":"583ceab3-4022-4553-9158-9bedc625ad4e","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3","headers":{"Host":"ip.langmanshanxi.top"}},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"🇺🇸 美国_11","server":"91.193.58.233","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":true,"network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3","headers":{"Host":"sk.laoyoutiao.link"}},"udp":true,"servername":"sk.laoyoutiao.link"}
+  - {"name":"🇸🇬 新加坡_8","server":"91.193.58.2","port":"8880","type":"vless","uuid":"fab7bf9c-ddb9-4563-8a04-fb01ce6c0fbf","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/","headers":{"Host":"kjgx.laoyoutiao.link"}},"udp":true,"servername":"Telegram-channel-WangCai2"}
+  - {"name":"❓ 未知_183","server":"31.43.179.3","port":"8880","type":"vless","uuid":"b5441b0d-2147-4898-8a6a-9b2c87f58382","tls":false,"skip-cert-verify":false,"network":"ws","ws-opts":{"path":"/TelegramU0001F1E8U0001F1F3","headers":{"Host":"bitget1.asdasd.click"}},"udp":true,"servername":"Telegram-channel-WangCai2"}
+
+# 代理组
+proxy-groups:
+  - name: 节点选择
+    type: select
+    icon: https://fastly.jsdelivr.net/gh/dongchengjie/metaST@main/metaST/Resources/icons/adjust.svg
+    proxies: ["自动选择", "DIRECT", '日本节点', '荷兰节点', '德国节点', '美国节点', '韩国节点', '法国节点', '香港节点', '加拿大节点', '越南节点', '未知节点', '新加坡节点', '芬兰节点', '爱尔兰节点']
+
+  - name: 自动选择
+    type: url-test
+    tolerance: 200
+    lazy: false
+    interval: 60
+    timeout: 2000
+    url: https://www.gstatic.com/generate_204
+    max-failed-times: 3
+    icon: https://fastly.jsdelivr.net/gh/dongchengjie/metaST@main/metaST/Resources/icons/speed.svg
+    proxies: ['日本节点', '荷兰节点', '德国节点', '美国节点', '韩国节点', '法国节点', '香港节点', '加拿大节点', '越南节点', '未知节点', '新加坡节点', '芬兰节点', '爱尔兰节点']
+
+  - name: 谷歌服务
+    type: select
+    icon: https://fastly.jsdelivr.net/gh/dongchengjie/metaST@main/metaST/Resources/icons/google.svg
+    proxies: ["节点选择", "自动选择", "全局直连", '日本节点', '荷兰节点', '德国节点', '美国节点', '韩国节点', '法国节点', '香港节点', '加拿大节点', '越南节点', '未知节点', '新加坡节点', '芬兰节点', '爱尔兰节点']
+
+  - name: 国外媒体
+    type: select
+    icon: https://fastly.jsdelivr.net/gh/dongchengjie/metaST@main/metaST/Resources/icons/youtube.svg
+    proxies: ["节点选择", "自动选择", "全局直连", '日本节点', '荷兰节点', '德国节点', '美国节点', '韩国节点', '法国节点', '香港节点', '加拿大节点', '越南节点', '未知节点', '新加坡节点', '芬兰节点', '爱尔兰节点']
+
+  - name: 电报消息
+    type: select
+    icon: https://fastly.jsdelivr.net/gh/dongchengjie/metaST@main/metaST/Resources/icons/telegram.svg
+    proxies: ["节点选择", "自动选择", "全局直连", '日本节点', '荷兰节点', '德国节点', '美国节点', '韩国节点', '法国节点', '香港节点', '加拿大节点', '越南节点', '未知节点', '新加坡节点', '芬兰节点', '爱尔兰节点']
+
+  - name: 微软服务
+    type: select
+    icon: https://fastly.jsdelivr.net/gh/dongchengjie/metaST@main/metaST/Resources/icons/microsoft.svg
+    proxies: ["全局直连", "节点选择", "自动选择", '日本节点', '荷兰节点', '德国节点', '美国节点', '韩国节点', '法国节点', '香港节点', '加拿大节点', '越南节点', '未知节点', '新加坡节点', '芬兰节点', '爱尔兰节点']
+
+  - name: 苹果服务
+    type: select
+    icon: https://fastly.jsdelivr.net/gh/dongchengjie/metaST@main/metaST/Resources/icons/apple.svg
+    proxies: ["节点选择", "自动选择", "全局直连", '日本节点', '荷兰节点', '德国节点', '美国节点', '韩国节点', '法国节点', '香港节点', '加拿大节点', '越南节点', '未知节点', '新加坡节点', '芬兰节点', '爱尔兰节点']
+
+  - name: 广告过滤
+    type: select
+    icon: https://fastly.jsdelivr.net/gh/dongchengjie/metaST@main/metaST/Resources/icons/bug.svg
+    proxies: ["REJECT", "DIRECT"]
+
+  - name: 全局直连
+    type: select
+    icon: https://fastly.jsdelivr.net/gh/dongchengjie/metaST@main/metaST/Resources/icons/link.svg
+    proxies: ["DIRECT", "节点选择", "自动选择", '日本节点', '荷兰节点', '德国节点', '美国节点', '韩国节点', '法国节点', '香港节点', '加拿大节点', '越南节点', '未知节点', '新加坡节点', '芬兰节点', '爱尔兰节点']
+
+  - name: 全局拦截
+    type: select
+    icon: https://fastly.jsdelivr.net/gh/dongchengjie/metaST@main/metaST/Resources/icons/block.svg
+    proxies: ["REJECT", "DIRECT"]
+
+  - name: 漏网之鱼
+    type: select
+    icon: https://fastly.jsdelivr.net/gh/dongchengjie/metaST@main/metaST/Resources/icons/fish.svg
+    proxies: ["节点选择", "自动选择", "全局直连", '日本节点', '荷兰节点', '德国节点', '美国节点', '韩国节点', '法国节点', '香港节点', '加拿大节点', '越南节点', '未知节点', '新加坡节点', '芬兰节点', '爱尔兰节点']
+
+  - name: 日本节点
+    type: url-test
+    tolerance: 100
+    lazy: false
+    interval: 180
+    timeout: 2000
+    url: https://www.gstatic.com/generate_204
+    max-failed-times: 3
+    icon: https://fastly.jsdelivr.net/gh/dongchengjie/metaST@main/metaST/Resources/icons/flags/jp.svg
+    hidden: false
+    proxies: ['🇯🇵 日本_1', '🇯🇵 日本_2']
+
+  - name: 荷兰节点
+    type: url-test
+    tolerance: 100
+    lazy: false
+    interval: 180
+    timeout: 2000
+    url: https://www.gstatic.com/generate_204
+    max-failed-times: 3
+    icon: https://fastly.jsdelivr.net/gh/dongchengjie/metaST@main/metaST/Resources/icons/flags/nl.svg
+    hidden: false
+    proxies: ['🇳🇱 荷兰_1', '🇳🇱 荷兰_2', '🇳🇱 荷兰_3']
+
+  - name: 德国节点
+    type: url-test
+    tolerance: 100
+    lazy: false
+    interval: 180
+    timeout: 2000
+    url: https://www.gstatic.com/generate_204
+    max-failed-times: 3
+    icon: https://fastly.jsdelivr.net/gh/dongchengjie/metaST@main/metaST/Resources/icons/flags/de.svg
+    hidden: false
+    proxies: ['🇩🇪 德国']
+
+  - name: 美国节点
+    type: url-test
+    tolerance: 100
+    lazy: false
+    interval: 180
+    timeout: 2000
+    url: https://www.gstatic.com/generate_204
+    max-failed-times: 3
+    icon: https://fastly.jsdelivr.net/gh/dongchengjie/metaST@main/metaST/Resources/icons/flags/us.svg
+    hidden: false
+    proxies: ['🇺🇸 美国_1', '🇺🇸 美国_2', '🇺🇸 美国_3', '🇺🇸 美国_4', '🇺🇸 美国_5', '🇺🇸 美国_6', '🇺🇸 美国_7', '🇺🇸 美国_8', '🇺🇸 美国_9', '🇺🇸 美国_10', '🇺🇸 美国_11']
+
+  - name: 韩国节点
+    type: url-test
+    tolerance: 100
+    lazy: false
+    interval: 180
+    timeout: 2000
+    url: https://www.gstatic.com/generate_204
+    max-failed-times: 3
+    icon: https://fastly.jsdelivr.net/gh/dongchengjie/metaST@main/metaST/Resources/icons/flags/kr.svg
+    hidden: false
+    proxies: ['🇰🇷 韩国_1', '🇰🇷 韩国_2', '🇰🇷 韩国_3', '🇰🇷 韩国_4', '🇰🇷 韩国_5', '🇰🇷 韩国_6']
+
+  - name: 法国节点
+    type: url-test
+    tolerance: 100
+    lazy: false
+    interval: 180
+    timeout: 2000
+    url: https://www.gstatic.com/generate_204
+    max-failed-times: 3
+    icon: https://fastly.jsdelivr.net/gh/dongchengjie/metaST@main/metaST/Resources/icons/flags/fr.svg
+    hidden: false
+    proxies: ['🇫🇷 法国']
+
+  - name: 香港节点
+    type: url-test
+    tolerance: 100
+    lazy: false
+    interval: 180
+    timeout: 2000
+    url: https://www.gstatic.com/generate_204
+    max-failed-times: 3
+    icon: https://fastly.jsdelivr.net/gh/dongchengjie/metaST@main/metaST/Resources/icons/flags/hk.svg
+    hidden: false
+    proxies: ['🇭🇰 香港_1', '🇭🇰 香港_2', '🇭🇰 香港_3']
+
+  - name: 加拿大节点
+    type: url-test
+    tolerance: 100
+    lazy: false
+    interval: 180
+    timeout: 2000
+    url: https://www.gstatic.com/generate_204
+    max-failed-times: 3
+    icon: https://fastly.jsdelivr.net/gh/dongchengjie/metaST@main/metaST/Resources/icons/flags/ca.svg
+    hidden: false
+    proxies: ['🇨🇦 加拿大_1', '🇨🇦 加拿大_2', '🇨🇦 加拿大_3', '🇨🇦 加拿大_4', '🇨🇦 加拿大_5', '🇨🇦 加拿大_6', '🇨🇦 加拿大_7', '🇨🇦 加拿大_8', '🇨🇦 加拿大_9', '🇨🇦 加拿大_10', '🇨🇦 加拿大_11', '🇨🇦 加拿大_12', '🇨🇦 加拿大_13', '🇨🇦 加拿大_14', '🇨🇦 加拿大_15', '🇨🇦 加拿大_16', '🇨🇦 加拿大_17', '🇨🇦 加拿大_18']
+
+  - name: 越南节点
+    type: url-test
+    tolerance: 100
+    lazy: false
+    interval: 180
+    timeout: 2000
+    url: https://www.gstatic.com/generate_204
+    max-failed-times: 3
+    icon: https://fastly.jsdelivr.net/gh/dongchengjie/metaST@main/metaST/Resources/icons/flags/vn.svg
+    hidden: false
+    proxies: ['🇻🇳 越南']
+
+  - name: 未知节点
+    type: url-test
+    tolerance: 100
+    lazy: false
+    interval: 180
+    timeout: 2000
+    url: https://www.gstatic.com/generate_204
+    max-failed-times: 3
+    icon: https://fastly.jsdelivr.net/gh/dongchengjie/metaST@main/metaST/Resources/icons/unknown.svg
+    hidden: false
+    proxies: ['❓ 未知_1', '❓ 未知_2', '❓ 未知_3', '❓ 未知_4', '❓ 未知_5', '❓ 未知_6', '❓ 未知_7', '❓ 未知_8', '❓ 未知_9', '❓ 未知_10', '❓ 未知_11', '❓ 未知_12', '❓ 未知_13', '❓ 未知_14', '❓ 未知_15', '❓ 未知_16', '❓ 未知_17', '❓ 未知_18', '❓ 未知_19', '❓ 未知_20', '❓ 未知_21', '❓ 未知_22', '❓ 未知_23', '❓ 未知_24', '❓ 未知_25', '❓ 未知_26', '❓ 未知_27', '❓ 未知_28', '❓ 未知_29', '❓ 未知_30', '❓ 未知_31', '❓ 未知_32', '❓ 未知_33', '❓ 未知_34', '❓ 未知_35', '❓ 未知_36', '❓ 未知_37', '❓ 未知_38', '❓ 未知_39', '❓ 未知_40', '❓ 未知_41', '❓ 未知_42', '❓ 未知_43', '❓ 未知_44', '❓ 未知_45', '❓ 未知_46', '❓ 未知_47', '❓ 未知_48', '❓ 未知_49', '❓ 未知_50', '❓ 未知_51', '❓ 未知_52', '❓ 未知_53', '❓ 未知_54', '❓ 未知_55', '❓ 未知_56', '❓ 未知_57', '❓ 未知_58', '❓ 未知_59', '❓ 未知_60', '❓ 未知_61', '❓ 未知_62', '❓ 未知_63', '❓ 未知_64', '❓ 未知_65', '❓ 未知_66', '❓ 未知_67', '❓ 未知_68', '❓ 未知_69', '❓ 未知_70', '❓ 未知_71', '❓ 未知_72', '❓ 未知_73', '❓ 未知_74', '❓ 未知_75', '❓ 未知_76', '❓ 未知_77', '❓ 未知_78', '❓ 未知_79', '❓ 未知_80', '❓ 未知_81', '❓ 未知_82', '❓ 未知_83', '❓ 未知_84', '❓ 未知_85', '❓ 未知_86', '❓ 未知_87', '❓ 未知_88', '❓ 未知_89', '❓ 未知_90', '❓ 未知_91', '❓ 未知_92', '❓ 未知_93', '❓ 未知_94', '❓ 未知_95', '❓ 未知_96', '❓ 未知_97', '❓ 未知_98', '❓ 未知_99', '❓ 未知_100', '❓ 未知_101', '❓ 未知_102', '❓ 未知_103', '❓ 未知_104', '❓ 未知_105', '❓ 未知_106', '❓ 未知_107', '❓ 未知_108', '❓ 未知_109', '❓ 未知_110', '❓ 未知_111', '❓ 未知_112', '❓ 未知_113', '❓ 未知_114', '❓ 未知_115', '❓ 未知_116', '❓ 未知_117', '❓ 未知_118', '❓ 未知_119', '❓ 未知_120', '❓ 未知_121', '❓ 未知_122', '❓ 未知_123', '❓ 未知_124', '❓ 未知_125', '❓ 未知_126', '❓ 未知_127', '❓ 未知_128', '❓ 未知_129', '❓ 未知_130', '❓ 未知_131', '❓ 未知_132', '❓ 未知_133', '❓ 未知_134', '❓ 未知_135', '❓ 未知_136', '❓ 未知_137', '❓ 未知_138', '❓ 未知_139', '❓ 未知_140', '❓ 未知_141', '❓ 未知_142', '❓ 未知_143', '❓ 未知_144', '❓ 未知_145', '❓ 未知_146', '❓ 未知_147', '❓ 未知_148', '❓ 未知_149', '❓ 未知_150', '❓ 未知_151', '❓ 未知_152', '❓ 未知_153', '❓ 未知_154', '❓ 未知_155', '❓ 未知_156', '❓ 未知_157', '❓ 未知_158', '❓ 未知_159', '❓ 未知_160', '❓ 未知_161', '❓ 未知_162', '❓ 未知_163', '❓ 未知_164', '❓ 未知_165', '❓ 未知_166', '❓ 未知_167', '❓ 未知_168', '❓ 未知_169', '❓ 未知_170', '❓ 未知_171', '❓ 未知_172', '❓ 未知_173', '❓ 未知_174', '❓ 未知_175', '❓ 未知_176', '❓ 未知_177', '❓ 未知_178', '❓ 未知_179', '❓ 未知_180', '❓ 未知_181', '❓ 未知_182', '❓ 未知_183']
+
+  - name: 新加坡节点
+    type: url-test
+    tolerance: 100
+    lazy: false
+    interval: 180
+    timeout: 2000
+    url: https://www.gstatic.com/generate_204
+    max-failed-times: 3
+    icon: https://fastly.jsdelivr.net/gh/dongchengjie/metaST@main/metaST/Resources/icons/flags/sg.svg
+    hidden: false
+    proxies: ['🇸🇬 新加坡_1', '🇸🇬 新加坡_2', '🇸🇬 新加坡_3', '🇸🇬 新加坡_4', '🇸🇬 新加坡_5', '🇸🇬 新加坡_6', '🇸🇬 新加坡_7', '🇸🇬 新加坡_8']
+
+  - name: 芬兰节点
+    type: url-test
+    tolerance: 100
+    lazy: false
+    interval: 180
+    timeout: 2000
+    url: https://www.gstatic.com/generate_204
+    max-failed-times: 3
+    icon: https://fastly.jsdelivr.net/gh/dongchengjie/metaST@main/metaST/Resources/icons/flags/fi.svg
+    hidden: false
+    proxies: ['🇫🇮 芬兰']
+
+  - name: 爱尔兰节点
+    type: url-test
+    tolerance: 100
+    lazy: false
+    interval: 180
+    timeout: 2000
+    url: https://www.gstatic.com/generate_204
+    max-failed-times: 3
+    icon: https://fastly.jsdelivr.net/gh/dongchengjie/metaST@main/metaST/Resources/icons/flags/ie.svg
+    hidden: false
+    proxies: ['🇮🇪 爱尔兰']
+
+
+# 规则
+rule-providers:
+  reject:
+    type: http
+    behavior: domain
+    format: yaml
+    url: https://mirror.ghproxy.com/https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/reject.txt
+    path: ./ruleset/loyalsoldier/reject.yaml
+    interval: 86400
+  icloud:
+    type: http
+    behavior: domain
+    format: yaml
+    url: https://mirror.ghproxy.com/https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/icloud.txt
+    path: ./ruleset/loyalsoldier/icloud.yaml
+    interval: 86400
+  apple:
+    type: http
+    behavior: domain
+    format: yaml
+    url: https://mirror.ghproxy.com/https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/apple.txt
+    path: ./ruleset/loyalsoldier/apple.yaml
+    interval: 86400
+  google:
+    type: http
+    behavior: domain
+    format: yaml
+    url: https://mirror.ghproxy.com/https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/google.txt
+    path: ./ruleset/loyalsoldier/google.yaml
+    interval: 86400
+  proxy:
+    type: http
+    behavior: domain
+    format: yaml
+    url: https://mirror.ghproxy.com/https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/proxy.txt
+    path: ./ruleset/loyalsoldier/proxy.yaml
+    interval: 86400
+  direct:
+    type: http
+    behavior: domain
+    format: yaml
+    url: https://mirror.ghproxy.com/https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/direct.txt
+    path: ./ruleset/loyalsoldier/direct.yaml
+    interval: 86400
+  private:
+    type: http
+    behavior: domain
+    format: yaml
+    url: https://mirror.ghproxy.com/https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/private.txt
+    path: ./ruleset/loyalsoldier/private.yaml
+    interval: 86400
+  gfw:
+    type: http
+    behavior: domain
+    format: yaml
+    url: https://mirror.ghproxy.com/https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/gfw.txt
+    path: ./ruleset/loyalsoldier/gfw.yaml
+    interval: 86400
+  tld-not-cn:
+    type: http
+    behavior: domain
+    format: yaml
+    url: https://mirror.ghproxy.com/https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/tld-not-cn.txt
+    path: ./ruleset/loyalsoldier/tld-not-cn.yaml
+    interval: 86400
+  telegramcidr:
+    type: http
+    behavior: ipcidr
+    format: yaml
+    url: https://mirror.ghproxy.com/https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/telegramcidr.txt
+    path: ./ruleset/loyalsoldier/telegramcidr.yaml
+    interval: 86400
+  cncidr:
+    type: http
+    behavior: ipcidr
+    format: yaml
+    url: https://mirror.ghproxy.com/https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/cncidr.txt
+    path: ./ruleset/loyalsoldier/cncidr.yaml
+    interval: 86400
+  lancidr:
+    type: http
+    behavior: ipcidr
+    format: yaml
+    url: https://mirror.ghproxy.com/https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/lancidr.txt
+    path: ./ruleset/loyalsoldier/lancidr.yaml
+    interval: 86400
+  applications:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://mirror.ghproxy.com/https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/applications.txt
+    path: ./ruleset/loyalsoldier/applications.yaml
+    interval: 86400
+
+rules:
+  # Google
+  - DOMAIN-SUFFIX,googleapis.cn,节点选择
+  - DOMAIN-SUFFIX,gstatic.com,节点选择
+  # Google Play
+  - DOMAIN-SUFFIX,xn--ngstr-lra8j.com,节点选择
+  # Github Pages
+  - DOMAIN-SUFFIX,github.io,节点选择
+  # V2raySE
+  - DOMAIN,v2rayse.com,节点选择
+  # loyalsoldier 规则集
+  - RULE-SET,reject,广告过滤
+  - RULE-SET,icloud,微软服务
+  - RULE-SET,apple,苹果服务
+  - RULE-SET,google,谷歌服务
+  - RULE-SET,proxy,节点选择
+  - RULE-SET,gfw,节点选择
+  - RULE-SET,tld-not-cn,节点选择
+  - RULE-SET,applications,全局直连
+  - RULE-SET,private,全局直连
+  - RULE-SET,direct,全局直连
+  - RULE-SET,lancidr,全局直连,no-resolve
+  - RULE-SET,cncidr,全局直连,no-resolve
+  - RULE-SET,telegramcidr,电报消息,no-resolve
+  # 其他
+  - GEOIP,LAN,全局直连,no-resolve
+  - GEOIP,CN,全局直连,no-resolve
+  - MATCH,漏网之鱼
+
