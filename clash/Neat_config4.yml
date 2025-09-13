@@ -18,173 +18,395 @@ dns:
   - tls://1.0.0.1:853
   - tls://dns.google:853
 proxies:
-  - {name: CN_7ebda_0001, server: awes35lesl.blhao0o.dpdns.org, port: 12030, type: ss, cipher: aes-128-gcm, password: 01721e43-5389-4f97-b21c-900abb2bda9e, udp: true}
-  - {name: CN_7ebda_0002, server: 185.242.247.249, port: 443, type: ss, cipher: chacha20-ietf-poly1305, password: Sur5Ny74npD3, udp: true}
-  - {name: CN_7ebda_0003, server: pop.ultra.6341.0tk8a3a1q4t94dler.com, port: 4059, type: ss, cipher: 2022-blake3-aes-256-gcm, password: "mtMkp+1FttkSLmDOF9blnNMLigcCRacprQS3ry0nf3o=:JB1ueTCKNIGMbhzWNjs+0FnZjZXO3UyXcZhIJ28vifA=", udp: true}
-  - {name: CN_7ebda_0004, server: pop.plus.3123.0tk8a3a1q4t94dler.com, port: 7059, type: ss, cipher: 2022-blake3-aes-256-gcm, password: "mtMkp+1FttkSLmDOF9blnNMLigcCRacprQS3ry0nf3o=:JB1ueTCKNIGMbhzWNjs+0FnZjZXO3UyXcZhIJ28vifA=", udp: true}
-  - {name: CR_7ebda_0005, server: 190.93.247.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram🇨🇳, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
-  - {name: GB_7ebda_0006, server: 31.56.204.125, port: 47535, type: vmess, uuid: bd31942b-9b80-4f70-893a-c75604228b84, alterId: 0, cipher: auto, tls: false, skip-cert-verify: false, udp: true}
-  - {name: GB_7ebda_0007, server: 158.41.110.94, port: 34045, type: vless, uuid: d8dd94fd-540e-461d-b5d4-acebef02c22a, tls: true, skip-cert-verify: false, client-fingerprint: chrome, servername: visit-this-invitation-link-to-join-tg-enkelte-notif.ekt.me, reality-opts: {public-key: cDaDzPr3PlS3NM8lreHZbdo-Mhqz8vMBzMSkHXhGIUA, short-id: e8ab71d0}, udp: true}
-  - {name: HK_7ebda_0008, server: 1e426046-t0fds0-t12cnj-1ol97.hk.p5pv.com, port: 80, type: vmess, uuid: 93fb69fc-77cf-11ee-85ee-f23c91369f2d, alterId: 2, cipher: auto, tls: false, skip-cert-verify: false, network: ws, ws-opts: {path: /, headers: {Host: broadcastlv.chat.bilibili.com}}, udp: true}
-  - {name: JP_7ebda_0009, server: 103.13.19.254, port: 50414, type: vmess, uuid: aacec49a-c6eb-43a0-b14a-e3b4302e5f1a, alterId: 0, cipher: auto, tls: false, skip-cert-verify: false, udp: true}
-  - {name: JP_7ebda_0010, server: jphj-hk-500m-100g.ifuck.gay, port: 38001, type: ss, cipher: aes-256-gcm, password: McRu2JvKif, udp: true}
-  - {name: RU_7ebda_0011, server: 194.53.53.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram🇨🇳, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
-  - {name: RU_7ebda_0012, server: wa.sfasti.ru, port: 443, type: vless, uuid: d4e4c02a-d969-47a6-ba0f-3d433fdac206, flow: xtls-rprx-vision, tls: true, skip-cert-verify: false, client-fingerprint: chrome, servername: wa.sfasti.ru, reality-opts: {public-key: J_jQq9-SWQZjiMhuPaFV7V2MaJ4pkKgVRaz7x6tmvy8, short-id: 16895459a2c7768d}, udp: true}
-  - {name: SC_7ebda_0013, server: 154.197.26.237, port: 8388, type: ss, cipher: chacha20-ietf, password: asd123456, udp: true}
-  - {name: SE_7ebda_0014, server: 185.146.173.39, port: 2052, type: vless, uuid: 2d14c894-aca5-4854-bcdb-75d4505486c2, tls: false, skip-cert-verify: false, servername: michalde.lemoex.ir, network: ws, ws-opts: {path: /wsmmad, headers: {Host: michalde.lemoex.ir}}, udp: true}
-  - {name: SE_7ebda_0015, server: james2.evovpn.ru, port: 443, type: vless, uuid: d7b157a3-c463-4bd6-909b-64bfbaa379bb, flow: xtls-rprx-vision, tls: true, skip-cert-verify: false, client-fingerprint: chrome, servername: speedtest.net, reality-opts: {public-key: -P9ZxYZP76-s_0mXFUDZeXxgUllKI1zkxSCqQca3NBM, short-id: 8f36094fbbe8e92e}, udp: true}
-  - {name: TW_7ebda_0016, server: 114.33.53.80, port: 10047, type: ss, cipher: chacha20-ietf-poly1305, password: 02150e6a-2a32-4028-89b7-a203cb56ad89, udp: true}
-  - {name: TW_7ebda_0017, server: 111.253.197.201, port: 10141, type: ss, cipher: chacha20-ietf-poly1305, password: 1cdb8dcd-36be-4d54-ae30-7c88b3f04e18, udp: true}
-  - {name: TW_7ebda_0018, server: 114.46.83.122, port: 10075, type: ss, cipher: chacha20-ietf-poly1305, password: 60df4359-5fe2-4df7-8751-c97ff6a52668, udp: true}
-  - {name: TW_7ebda_0019, server: 118.170.217.180, port: 10020, type: ss, cipher: chacha20-ietf-poly1305, password: 5aeb7d55-60fc-479d-a35d-f24e3d757f8c, udp: true}
-  - {name: TW_7ebda_0020, server: 111.253.199.25, port: 10148, type: ss, cipher: chacha20-ietf-poly1305, password: f1ad222f-b304-40a8-aeab-24a810371ea9, udp: true}
-  - {name: TW_7ebda_0021, server: 125.228.180.215, port: 10089, type: ss, cipher: chacha20-ietf-poly1305, password: 9cd50d98-7e20-4b5f-8c1c-23a81de7a541, udp: true}
-  - {name: TW_7ebda_0022, server: 36.232.127.162, port: 10140, type: ss, cipher: chacha20-ietf-poly1305, password: 7182ca82-f580-4e2e-9e9a-22b1c3fdfafb, udp: true}
-  - {name: TW_7ebda_0023, server: 114.46.79.69, port: 10070, type: ss, cipher: chacha20-ietf-poly1305, password: 7fc173fa-fbad-4cf1-94d3-3c7fe576a1ce, udp: true}
-  - {name: TW_7ebda_0024, server: 118.170.220.47, port: 10025, type: ss, cipher: chacha20-ietf-poly1305, password: e73c8f9f-d53e-4f34-9237-2212ccc12d63, udp: true}
-  - {name: TW_7ebda_0025, server: 125.231.85.152, port: 10080, type: ss, cipher: chacha20-ietf-poly1305, password: 60f661f4-579c-45c9-8156-e0db88911dc6, udp: true}
-  - {name: TW_7ebda_0026, server: 118.170.220.47, port: 10025, type: ss, cipher: chacha20-ietf-poly1305, password: 5b60ce4f-e6f1-4db8-a8a3-6778e7f3ef53, udp: true}
-  - {name: TW_7ebda_0027, server: 114.46.83.122, port: 10075, type: ss, cipher: chacha20-ietf-poly1305, password: 04066376-d974-4ba0-a76f-20f8aeecd05b, udp: true}
-  - {name: TW_7ebda_0028, server: 114.46.83.122, port: 10075, type: ss, cipher: chacha20-ietf-poly1305, password: 7182ca82-f580-4e2e-9e9a-22b1c3fdfafb, udp: true}
-  - {name: TW_7ebda_0029, server: 114.46.79.69, port: 10070, type: ss, cipher: chacha20-ietf-poly1305, password: c6081e42-2dac-4ca0-ab51-176be0f479e7, udp: true}
-  - {name: TW_7ebda_0030, server: 59.126.32.59, port: 10066, type: ss, cipher: chacha20-ietf-poly1305, password: 5f1cdb54-70ee-4f52-a8d3-db5bf6f2729c, udp: true}
-  - {name: TW_7ebda_0031, server: 111.253.197.201, port: 10141, type: ss, cipher: chacha20-ietf-poly1305, password: 95911f0e-ca9e-4570-89a3-2622ac71ada0, udp: true}
-  - {name: TW_7ebda_0032, server: 36.232.127.162, port: 10140, type: ss, cipher: chacha20-ietf-poly1305, password: 04066376-d974-4ba0-a76f-20f8aeecd05b, udp: true}
-  - {name: TW_7ebda_0033, server: 118.170.211.35, port: 10005, type: ss, cipher: chacha20-ietf-poly1305, password: 5b60ce4f-e6f1-4db8-a8a3-6778e7f3ef53, udp: true}
-  - {name: TW_7ebda_0034, server: 118.170.220.47, port: 10025, type: ss, cipher: chacha20-ietf-poly1305, password: 7182ca82-f580-4e2e-9e9a-22b1c3fdfafb, udp: true}
-  - {name: TW_7ebda_0035, server: 118.170.211.35, port: 10005, type: ss, cipher: chacha20-ietf-poly1305, password: 60df4359-5fe2-4df7-8751-c97ff6a52668, udp: true}
-  - {name: TW_7ebda_0036, server: 114.33.53.80, port: 10047, type: ss, cipher: chacha20-ietf-poly1305, password: 9cd50d98-7e20-4b5f-8c1c-23a81de7a541, udp: true}
-  - {name: TW_7ebda_0037, server: 36.232.126.210, port: 10147, type: ss, cipher: chacha20-ietf-poly1305, password: 7fc173fa-fbad-4cf1-94d3-3c7fe576a1ce, udp: true}
-  - {name: TW_7ebda_0038, server: 114.33.53.80, port: 10047, type: ss, cipher: chacha20-ietf-poly1305, password: 5f1cdb54-70ee-4f52-a8d3-db5bf6f2729c, udp: true}
-  - {name: TW_7ebda_0039, server: 118.170.208.202, port: 10027, type: ss, cipher: chacha20-ietf-poly1305, password: 5b60ce4f-e6f1-4db8-a8a3-6778e7f3ef53, udp: true}
-  - {name: TW_7ebda_0040, server: 111.253.200.231, port: 10126, type: ss, cipher: chacha20-ietf-poly1305, password: 04066376-d974-4ba0-a76f-20f8aeecd05b, udp: true}
-  - {name: TW_7ebda_0041, server: 125.231.85.152, port: 10080, type: ss, cipher: chacha20-ietf-poly1305, password: f1ad222f-b304-40a8-aeab-24a810371ea9, udp: true}
-  - {name: TW_7ebda_0042, server: 111.253.200.231, port: 10126, type: ss, cipher: chacha20-ietf-poly1305, password: 02150e6a-2a32-4028-89b7-a203cb56ad89, udp: true}
-  - {name: US_7ebda_0043, server: 95.174.71.28, port: 2377, type: ss, cipher: chacha20-ietf-poly1305, password: t0srmdxrm3xyjnvqz9ewlxb2myq7rjuv, plugin: obfs, plugin-opts: {mode: tls, host: "(TG @WangCai2)4fa101a:48723", tls: false}, udp: true}
-  - {name: US_7ebda_0044, server: 192.3.216.180, port: 25740, type: vmess, uuid: 43cf14a5-5b85-47e2-a4c2-b514beab7054, alterId: 0, cipher: auto, tls: false, skip-cert-verify: false, network: http, http-opts: {method: GET, path: [/]}, udp: true}
-  - {name: US_7ebda_0045, server: 66.253.5.58, port: 40083, type: vmess, uuid: 19003217-0407-43d5-bf22-9aa642469a83, alterId: 0, cipher: auto, tls: false, skip-cert-verify: false, udp: true}
-  - {name: US_7ebda_0047, server: 64.81.24.59, port: 42940, type: vmess, uuid: f68d852e-cef3-4baf-f4ce-b98c88197bde, alterId: 0, cipher: auto, tls: false, skip-cert-verify: false, udp: true}
-  - {name: US_7ebda_0049, server: 209.94.90.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram🇨🇳, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
-  - {name: US_7ebda_0050, server: 63.141.128.14, port: 80, type: vless, uuid: 18494a96-f6a7-425d-ae82-dc00c4f3f819, tls: false, skip-cert-verify: false, servername: a.joIn.zEdMoDeOn.oNl., network: ws, ws-opts: {path: /Join-ZEDMODEON-ZEDMODEON-ZEDMODEON-bia-ZEDMODEON-ZEDMODEON-ZEDMODEON-ZEDMODEON-ZEDMODEON-ZEDMODEON-ZEDMODEON-ZEDMODEON-ZEDMODEON-ZEDMODEON-ZEDMODEON-ZEDMODEON-ZEDMODEON-ZEDMODEON-ZEDMODEON-ZEDMODEON, headers: {Host: a.joIn.zEdMoDeOn.oNl.}}, udp: true}
-  - {name: US_7ebda_0051, server: 63.141.128.28, port: 8080, type: vless, uuid: 49e77ea9-62bd-44c4-8a52-0d7569c305c5, tls: false, skip-cert-verify: false, servername: f.jOin.zEdMoDeOn.oNl., network: ws, ws-opts: {path: /Join-ZEDMODEON-ZEDMODEON-ZEDMODEON-bia-ZEDMODEON-ZEDMODEON-ZEDMODEON-ZEDMODEON-ZEDMODEON-ZEDMODEON-ZEDMODEON-ZEDMODEON-ZEDMODEON-ZEDMODEON-ZEDMODEON-ZEDMODEON-ZEDMODEON-ZEDMODEON, headers: {Host: f.jOin.zEdMoDeOn.oNl.}}, udp: true}
-  - {name: US_7ebda_0052, server: 63.141.128.23, port: 80, type: vless, uuid: d59d49d3-a392-403a-8480-59934008431d, tls: false, skip-cert-verify: false, servername: b.jOin.zEdMoDeOn.oNl., network: ws, ws-opts: {path: /Join-ZEDMODEON-ZEDMODEON-ZEDMODEON-bia-ZEDMODEON-ZEDMODEON-ZEDMODEON-ZEDMODEON-ZEDMODEON-ZEDMODEON-ZEDMODEON-ZEDMODEON-ZEDMODEON-ZEDMODEON, headers: {Host: b.jOin.zEdMoDeOn.oNl.}}, udp: true}
-  - {name: US_7ebda_0053, server: 63.141.128.13, port: 80, type: vless, uuid: fdf5ef4d-bf23-4bd1-b04e-39c80ba0c577, tls: false, skip-cert-verify: false, servername: c.jOin.zEdMoDeOn.oNl., network: ws, ws-opts: {path: /Join-ZEDMODEON-ZEDMODEON-ZEDMODEON-bia-ZEDMODEON-ZEDMODEON-ZEDMODEON-ZEDMODEON-ZEDMODEON-ZEDMODEON-ZEDMODEON-ZEDMODEON-ZEDMODEON-ZEDMODEON-ZEDMODEON-ZEDMODEON, headers: {Host: c.jOin.zEdMoDeOn.oNl.}}, udp: true}
-  - {name: VN_7ebda_0054, server: 103.186.154.19, port: 38388, type: ss, cipher: aes-256-cfb, password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, udp: true}
-  - {name: VN_7ebda_0055, server: 103.186.154.37, port: 38388, type: ss, cipher: aes-256-cfb, password: Xn8jKdmDM00IeO%#$#fJAMtsEAEUOpH/YWYtYqDFnT0SV, udp: true}
+  - {name: AT_1d672_0001, server: 212.183.88.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /由零开始, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: AT_1d672_0002, server: 212.183.88.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram🇨🇳, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: AT_1d672_0003, server: 212.183.88.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: CH_1d672_0004, server: 185.18.250.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /由零开始, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: CY_1d672_0005, server: 195.26.229.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /由零开始, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: CY_1d672_0006, server: 195.26.229.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: CY_1d672_0007, server: 195.26.229.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram🇮🇷@ShadowProxy66, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: CY_1d672_0008, server: 195.26.229.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram🇨🇳, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: CY_1d672_0009, server: 195.26.229.87, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: true, network: ws, ws-opts: {path: /TelegramU0001F1E8U0001F1F3, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: CZ_1d672_0010, server: 193.124.224.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: true, network: ws, ws-opts: {path: /TelegramU0001F1E8U0001F1F3, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: CZ_1d672_0011, server: 193.124.224.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: CZ_1d672_0012, server: 193.124.224.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram🇨🇳, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: CZ_1d672_0013, server: 193.124.224.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /由零开始, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: DE_1d672_0014, server: 188.244.122.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /由零开始, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: DE_1d672_0015, server: 188.244.122.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /TelegramU0001F1E8U0001F1F3, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: DE_1d672_0016, server: 188.244.122.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram🇨🇳, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: DE_1d672_0017, server: 188.244.122.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: ES_1d672_0018, server: 185.251.83.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: ES_1d672_0019, server: 185.251.83.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram🇨🇳, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: ES_1d672_0020, server: 185.251.80.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /由零开始, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: ES_1d672_0021, server: 185.238.228.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram🇨🇳, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: ES_1d672_0022, server: 185.251.83.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /TelegramU0001F1E8U0001F1F3, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: ES_1d672_0023, server: 185.251.80.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram🇨🇳, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: ES_1d672_0024, server: 185.251.81.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: ES_1d672_0025, server: 185.251.81.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram🇨🇳, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: ES_1d672_0026, server: 185.251.82.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: ES_1d672_0027, server: 185.251.83.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /由零开始U0001F1E8U0001F1F3, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: ES_1d672_0028, server: 185.251.82.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram🇨🇳, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: ES_1d672_0029, server: 185.251.81.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram@ShadowProxy66, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: ES_1d672_0030, server: 185.251.80.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: ES_1d672_0031, server: 185.251.81.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /由零开始, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: FR_1d672_0032, server: 185.7.240.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram@ShadowProxy66, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: FR_1d672_0033, server: 185.7.240.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: FR_1d672_0034, server: 185.7.240.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /由零开始, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: FR_1d672_0035, server: 185.7.240.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram🇨🇳, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: FR_1d672_0036, server: 185.16.110.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram🇨🇳, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: FR_1d672_0037, server: 185.16.110.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: true, network: ws, ws-opts: {path: /Telegram, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: FR_1d672_0038, server: 185.16.110.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /由零开始, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: GB_1d672_0039, server: 185.156.19.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /由零开始, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: GB_1d672_0040, server: 185.156.19.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: GB_1d672_0041, server: 185.156.19.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /TelegramU0001F1E8U0001F1F3, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: GB_1d672_0042, server: 185.156.19.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram🇨🇳, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: GR_1d672_0043, server: 185.39.207.121, port: 443, type: vless, uuid: 6035325d-399a-5148-9126-29cedfd5966a, flow: xtls-rprx-vision, tls: true, skip-cert-verify: false, client-fingerprint: chrome, servername: outlook.office.com, reality-opts: {public-key: Mjz6Gz75xTMe9ZU08h0y-A_VgRQ6tnt3qoOzdEn1k1M, short-id: 0fa84b90}, udp: true}
+  - {name: KZ_1d672_0044, server: 194.76.18.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: KZ_1d672_0045, server: 185.176.26.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: true, network: ws, ws-opts: {path: /Telegram, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: KZ_1d672_0046, server: 194.76.18.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram🇨🇳, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: LU_1d672_0047, server: 188.42.88.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: LU_1d672_0048, server: 188.42.89.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /TelegramU0001F1E8U0001F1F3, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: LU_1d672_0049, server: 188.42.89.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: LU_1d672_0050, server: 188.42.88.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram🇨🇳, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: LU_1d672_0051, server: 188.42.88.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /由零开始, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: LU_1d672_0052, server: 188.42.89.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram🇨🇳, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: NL_1d672_0053, server: 188.164.248.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: NL_1d672_0054, server: 188.164.248.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /由零开始, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: NL_1d672_0055, server: 185.18.184.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram🇨🇳, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: NL_1d672_0056, server: 188.164.248.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram🇨🇳, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: NL_1d672_0057, server: 188.164.248.87, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: NL_1d672_0058, server: 188.164.248.87, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram🇮🇷@ShadowProxy66, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: RU_1d672_0059, server: 185.152.94.10, port: 443, type: vless, uuid: 3c7a1227-5383-3a19-7084-76624ec8f84f, flow: xtls-rprx-vision, tls: true, skip-cert-verify: false, client-fingerprint: chrome, servername: speed.cloudflare.com, reality-opts: {public-key: y3D5zxj5V-R4fpbHQdLaVp5l28Y4brWPnWyCm8dj2mc}, udp: true}
+  - {name: RU_1d672_0060, server: 185.152.94.10, port: 1443, type: vless, uuid: 3c7a1227-5383-3a19-7084-76624ec8f84f, flow: xtls-rprx-vision, tls: true, skip-cert-verify: false, client-fingerprint: chrome, servername: speed.cloudflare.com, reality-opts: {public-key: y3D5zxj5V-R4fpbHQdLaVp5l28Y4brWPnWyCm8dj2mc}, udp: true}
+  - {name: RU_1d672_0061, server: 213.232.120.10, port: 1443, type: vless, uuid: 3c7a1227-5383-3a19-7084-76624ec8f84f, flow: xtls-rprx-vision, tls: true, skip-cert-verify: false, client-fingerprint: chrome, servername: speed.cloudflare.com, reality-opts: {public-key: 6h7z2IG6_BopO2tGTRAytfMOWbcXxRWghb2c9IILJkA}, udp: true}
+  - {name: RU_1d672_0062, server: 185.148.107.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: true, network: ws, ws-opts: {path: /TelegramU0001F1E8U0001F1F3, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: RU_1d672_0063, server: 185.148.107.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram@ShadowProxy66, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: RU_1d672_0064, server: 185.148.107.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram🇨🇳, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: RU_1d672_0065, server: 147.78.180.10, port: 1443, type: vless, uuid: 3c7a1227-5383-3a19-7084-76624ec8f84f, flow: xtls-rprx-vision, tls: true, skip-cert-verify: false, client-fingerprint: chrome, servername: speed.cloudflare.com, reality-opts: {public-key: Ot7NIMwy588LBegSSLxqxzXh9MszA0CxFPHbSAj7PR0}, udp: true}
+  - {name: RU_1d672_0066, server: 147.78.180.10, port: 443, type: vless, uuid: 3c7a1227-5383-3a19-7084-76624ec8f84f, flow: xtls-rprx-vision, tls: true, skip-cert-verify: false, client-fingerprint: chrome, servername: speed.cloudflare.com, reality-opts: {public-key: Ot7NIMwy588LBegSSLxqxzXh9MszA0CxFPHbSAj7PR0}, udp: true}
+  - {name: RU_1d672_0067, server: 185.174.138.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: RU_1d672_0068, server: 185.176.24.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /TelegramU0001F1E8U0001F1F3, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: RU_1d672_0069, server: 185.59.218.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: RU_1d672_0070, server: 185.59.218.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram🇨🇳, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: RU_1d672_0071, server: 185.148.107.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: RU_1d672_0072, server: 185.176.24.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: RU_1d672_0073, server: 188.42.145.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram🇨🇳, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: RU_1d672_0074, server: 185.148.107.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /由零开始U0001F1E8U0001F1F3, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: RU_1d672_0075, server: 185.148.107.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /由零开始, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: RU_1d672_0076, server: 188.42.145.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /由零开始, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: RU_1d672_0077, server: 185.176.24.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram🇨🇳, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: RU_1d672_0078, server: 188.42.145.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: RU_1d672_0079, server: 213.232.123.10, port: 1443, type: vless, uuid: 3c7a1227-5383-3a19-7084-76624ec8f84f, flow: xtls-rprx-vision, tls: true, skip-cert-verify: false, client-fingerprint: chrome, servername: speed.cloudflare.com, reality-opts: {public-key: SnjXP0GFBVxg3C7sbWUJ5JqKpnlg_BNMXuqoE78YhVE}, udp: true}
+  - {name: RU_1d672_0080, server: 213.232.123.10, port: 443, type: vless, uuid: 3c7a1227-5383-3a19-7084-76624ec8f84f, flow: xtls-rprx-vision, tls: true, skip-cert-verify: false, client-fingerprint: chrome, servername: speed.cloudflare.com, reality-opts: {public-key: SnjXP0GFBVxg3C7sbWUJ5JqKpnlg_BNMXuqoE78YhVE}, udp: true}
+  - {name: RU_1d672_0081, server: 185.176.24.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /由零开始, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: US_1d672_0082, server: 199.68.156.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram🇮🇷ShadowProxy66, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: US_1d672_0083, server: 199.68.156.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: US_1d672_0084, server: 199.68.156.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: US_1d672_0085, server: 209.94.90.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram🇮🇷ShadowProxy66, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: US_1d672_0086, server: 192.200.160.87, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram🇨🇳, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: US_1d672_0087, server: 195.13.44.87, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: US_1d672_0088, server: 209.94.90.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram🇨🇳, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: US_1d672_0089, server: 192.200.160.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram🇨🇳, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: US_1d672_0090, server: 199.34.229.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: US_1d672_0091, server: 199.34.230.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram🇨🇳, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: US_1d672_0092, server: 192.0.54.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram🇨🇳, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: US_1d672_0093, server: 185.148.104.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram🇨🇳, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: US_1d672_0094, server: 192.0.63.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram🇨🇳, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: US_1d672_0095, server: 209.94.90.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: US_1d672_0096, server: 199.68.156.87, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: US_1d672_0097, server: 198.62.62.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram🇨🇳, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: US_1d672_0098, server: 199.181.197.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram🇨🇳, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: US_1d672_0099, server: 192.0.54.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: US_1d672_0100, server: 92.118.112.83, port: 443, type: vless, uuid: 6035325d-399a-5148-9126-29cedfd5966a, flow: xtls-rprx-vision, tls: true, skip-cert-verify: false, client-fingerprint: chrome, servername: outlook.office.com, reality-opts: {public-key: Gd8fDDLpqXZoIybSXnBaN-YWrpbgqe2944h0cjXA4wk, short-id: 3a84f8ce}, udp: true}
+  - {name: US_1d672_0101, server: 209.94.90.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram🇮🇷@ShadowProxy66, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: US_1d672_0102, server: 85.239.56.10, port: 443, type: vless, uuid: 3c7a1227-5383-3a19-7084-76624ec8f84f, flow: xtls-rprx-vision, tls: true, skip-cert-verify: false, client-fingerprint: chrome, servername: speed.cloudflare.com, reality-opts: {public-key: dG0riYws1nKX02uDxyblkDxSkFZ5V7G6jYwUKJBY0i8}, udp: true}
+  - {name: US_1d672_0103, server: 195.13.44.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: US_1d672_0104, server: 216.24.57.87, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: US_1d672_0105, server: 216.205.52.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: US_1d672_0106, server: 195.13.44.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /由零开始, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: US_1d672_0107, server: 185.148.105.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: US_1d672_0108, server: 195.13.45.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: US_1d672_0109, server: 209.94.90.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram@ShadowProxy66, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: US_1d672_0110, server: 192.0.63.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: US_1d672_0111, server: 185.148.105.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /由零开始, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: US_1d672_0112, server: 192.0.63.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /由零开始, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: US_1d672_0113, server: 205.233.181.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: US_1d672_0114, server: 209.46.30.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /由零开始, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: US_1d672_0115, server: 209.94.90.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /由零开始@ShadowProxy66, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: US_1d672_0116, server: 199.68.156.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /TelegramU0001F1EEU0001F1F7ShadowProxy66, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: US_1d672_0117, server: 198.62.62.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /由零开始, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: US_1d672_0118, server: 198.62.62.87, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: US_1d672_0119, server: 198.62.62.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: US_1d672_0120, server: 195.13.45.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /由零开始, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: US_1d672_0121, server: 192.200.160.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /由零开始, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: US_1d672_0122, server: 198.62.62.87, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram🇨🇳, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: US_1d672_0123, server: 199.34.230.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /由零开始, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: US_1d672_0124, server: 192.200.160.87, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: US_1d672_0125, server: 199.34.229.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /由零开始, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: US_1d672_0126, server: 195.13.45.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram🇨🇳, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
+  - {name: US_1d672_0127, server: 216.24.57.195, port: 2096, type: trojan, password: slch2024, sni: ocost-dy.wmlefl.cc, skip-cert-verify: false, network: ws, ws-opts: {path: /Telegram, headers: {Host: ocost-dy.wmlefl.cc}}, udp: true}
 proxy-groups:
 - name: ⭕ proxinode
   type: select
   proxies:
   - ♻️ automatic
-  - CN_7ebda_0001
-  - CN_7ebda_0002
-  - CN_7ebda_0003
-  - CN_7ebda_0004
-  - CR_7ebda_0005
-  - GB_7ebda_0006
-  - GB_7ebda_0007
-  - HK_7ebda_0008
-  - JP_7ebda_0009
-  - JP_7ebda_0010
-  - RU_7ebda_0011
-  - RU_7ebda_0012
-  - SC_7ebda_0013
-  - SE_7ebda_0014
-  - SE_7ebda_0015
-  - TW_7ebda_0016
-  - TW_7ebda_0017
-  - TW_7ebda_0018
-  - TW_7ebda_0019
-  - TW_7ebda_0020
-  - TW_7ebda_0021
-  - TW_7ebda_0022
-  - TW_7ebda_0023
-  - TW_7ebda_0024
-  - TW_7ebda_0025
-  - TW_7ebda_0026
-  - TW_7ebda_0027
-  - TW_7ebda_0028
-  - TW_7ebda_0029
-  - TW_7ebda_0030
-  - TW_7ebda_0031
-  - TW_7ebda_0032
-  - TW_7ebda_0033
-  - TW_7ebda_0034
-  - TW_7ebda_0035
-  - TW_7ebda_0036
-  - TW_7ebda_0037
-  - TW_7ebda_0038
-  - TW_7ebda_0039
-  - TW_7ebda_0040
-  - TW_7ebda_0041
-  - TW_7ebda_0042
-  - US_7ebda_0043
-  - US_7ebda_0044
-  - US_7ebda_0045
-  - US_7ebda_0047
-  - US_7ebda_0049
-  - US_7ebda_0050
-  - US_7ebda_0051
-  - US_7ebda_0052
-  - US_7ebda_0053
-  - VN_7ebda_0054
-  - VN_7ebda_0055
+  - AT_1d672_0001
+  - AT_1d672_0002
+  - AT_1d672_0003
+  - CH_1d672_0004
+  - CY_1d672_0005
+  - CY_1d672_0006
+  - CY_1d672_0007
+  - CY_1d672_0008
+  - CY_1d672_0009
+  - CZ_1d672_0010
+  - CZ_1d672_0011
+  - CZ_1d672_0012
+  - CZ_1d672_0013
+  - DE_1d672_0014
+  - DE_1d672_0015
+  - DE_1d672_0016
+  - DE_1d672_0017
+  - ES_1d672_0018
+  - ES_1d672_0019
+  - ES_1d672_0020
+  - ES_1d672_0021
+  - ES_1d672_0022
+  - ES_1d672_0023
+  - ES_1d672_0024
+  - ES_1d672_0025
+  - ES_1d672_0026
+  - ES_1d672_0027
+  - ES_1d672_0028
+  - ES_1d672_0029
+  - ES_1d672_0030
+  - ES_1d672_0031
+  - FR_1d672_0032
+  - FR_1d672_0033
+  - FR_1d672_0034
+  - FR_1d672_0035
+  - FR_1d672_0036
+  - FR_1d672_0037
+  - FR_1d672_0038
+  - GB_1d672_0039
+  - GB_1d672_0040
+  - GB_1d672_0041
+  - GB_1d672_0042
+  - GR_1d672_0043
+  - KZ_1d672_0044
+  - KZ_1d672_0045
+  - KZ_1d672_0046
+  - LU_1d672_0047
+  - LU_1d672_0048
+  - LU_1d672_0049
+  - LU_1d672_0050
+  - LU_1d672_0051
+  - LU_1d672_0052
+  - NL_1d672_0053
+  - NL_1d672_0054
+  - NL_1d672_0055
+  - NL_1d672_0056
+  - NL_1d672_0057
+  - NL_1d672_0058
+  - RU_1d672_0059
+  - RU_1d672_0060
+  - RU_1d672_0061
+  - RU_1d672_0062
+  - RU_1d672_0063
+  - RU_1d672_0064
+  - RU_1d672_0065
+  - RU_1d672_0066
+  - RU_1d672_0067
+  - RU_1d672_0068
+  - RU_1d672_0069
+  - RU_1d672_0070
+  - RU_1d672_0071
+  - RU_1d672_0072
+  - RU_1d672_0073
+  - RU_1d672_0074
+  - RU_1d672_0075
+  - RU_1d672_0076
+  - RU_1d672_0077
+  - RU_1d672_0078
+  - RU_1d672_0079
+  - RU_1d672_0080
+  - RU_1d672_0081
+  - US_1d672_0082
+  - US_1d672_0083
+  - US_1d672_0084
+  - US_1d672_0085
+  - US_1d672_0086
+  - US_1d672_0087
+  - US_1d672_0088
+  - US_1d672_0089
+  - US_1d672_0090
+  - US_1d672_0091
+  - US_1d672_0092
+  - US_1d672_0093
+  - US_1d672_0094
+  - US_1d672_0095
+  - US_1d672_0096
+  - US_1d672_0097
+  - US_1d672_0098
+  - US_1d672_0099
+  - US_1d672_0100
+  - US_1d672_0101
+  - US_1d672_0102
+  - US_1d672_0103
+  - US_1d672_0104
+  - US_1d672_0105
+  - US_1d672_0106
+  - US_1d672_0107
+  - US_1d672_0108
+  - US_1d672_0109
+  - US_1d672_0110
+  - US_1d672_0111
+  - US_1d672_0112
+  - US_1d672_0113
+  - US_1d672_0114
+  - US_1d672_0115
+  - US_1d672_0116
+  - US_1d672_0117
+  - US_1d672_0118
+  - US_1d672_0119
+  - US_1d672_0120
+  - US_1d672_0121
+  - US_1d672_0122
+  - US_1d672_0123
+  - US_1d672_0124
+  - US_1d672_0125
+  - US_1d672_0126
+  - US_1d672_0127
 - name: ♻️ automatic
   type: url-test
   proxies:
-  - CN_7ebda_0001
-  - CN_7ebda_0002
-  - CN_7ebda_0003
-  - CN_7ebda_0004
-  - CR_7ebda_0005
-  - GB_7ebda_0006
-  - GB_7ebda_0007
-  - HK_7ebda_0008
-  - JP_7ebda_0009
-  - JP_7ebda_0010
-  - RU_7ebda_0011
-  - RU_7ebda_0012
-  - SC_7ebda_0013
-  - SE_7ebda_0014
-  - SE_7ebda_0015
-  - TW_7ebda_0016
-  - TW_7ebda_0017
-  - TW_7ebda_0018
-  - TW_7ebda_0019
-  - TW_7ebda_0020
-  - TW_7ebda_0021
-  - TW_7ebda_0022
-  - TW_7ebda_0023
-  - TW_7ebda_0024
-  - TW_7ebda_0025
-  - TW_7ebda_0026
-  - TW_7ebda_0027
-  - TW_7ebda_0028
-  - TW_7ebda_0029
-  - TW_7ebda_0030
-  - TW_7ebda_0031
-  - TW_7ebda_0032
-  - TW_7ebda_0033
-  - TW_7ebda_0034
-  - TW_7ebda_0035
-  - TW_7ebda_0036
-  - TW_7ebda_0037
-  - TW_7ebda_0038
-  - TW_7ebda_0039
-  - TW_7ebda_0040
-  - TW_7ebda_0041
-  - TW_7ebda_0042
-  - US_7ebda_0043
-  - US_7ebda_0044
-  - US_7ebda_0045
-  - US_7ebda_0047
-  - US_7ebda_0049
-  - US_7ebda_0050
-  - US_7ebda_0051
-  - US_7ebda_0052
-  - US_7ebda_0053
-  - VN_7ebda_0054
-  - VN_7ebda_0055
+  - AT_1d672_0001
+  - AT_1d672_0002
+  - AT_1d672_0003
+  - CH_1d672_0004
+  - CY_1d672_0005
+  - CY_1d672_0006
+  - CY_1d672_0007
+  - CY_1d672_0008
+  - CY_1d672_0009
+  - CZ_1d672_0010
+  - CZ_1d672_0011
+  - CZ_1d672_0012
+  - CZ_1d672_0013
+  - DE_1d672_0014
+  - DE_1d672_0015
+  - DE_1d672_0016
+  - DE_1d672_0017
+  - ES_1d672_0018
+  - ES_1d672_0019
+  - ES_1d672_0020
+  - ES_1d672_0021
+  - ES_1d672_0022
+  - ES_1d672_0023
+  - ES_1d672_0024
+  - ES_1d672_0025
+  - ES_1d672_0026
+  - ES_1d672_0027
+  - ES_1d672_0028
+  - ES_1d672_0029
+  - ES_1d672_0030
+  - ES_1d672_0031
+  - FR_1d672_0032
+  - FR_1d672_0033
+  - FR_1d672_0034
+  - FR_1d672_0035
+  - FR_1d672_0036
+  - FR_1d672_0037
+  - FR_1d672_0038
+  - GB_1d672_0039
+  - GB_1d672_0040
+  - GB_1d672_0041
+  - GB_1d672_0042
+  - GR_1d672_0043
+  - KZ_1d672_0044
+  - KZ_1d672_0045
+  - KZ_1d672_0046
+  - LU_1d672_0047
+  - LU_1d672_0048
+  - LU_1d672_0049
+  - LU_1d672_0050
+  - LU_1d672_0051
+  - LU_1d672_0052
+  - NL_1d672_0053
+  - NL_1d672_0054
+  - NL_1d672_0055
+  - NL_1d672_0056
+  - NL_1d672_0057
+  - NL_1d672_0058
+  - RU_1d672_0059
+  - RU_1d672_0060
+  - RU_1d672_0061
+  - RU_1d672_0062
+  - RU_1d672_0063
+  - RU_1d672_0064
+  - RU_1d672_0065
+  - RU_1d672_0066
+  - RU_1d672_0067
+  - RU_1d672_0068
+  - RU_1d672_0069
+  - RU_1d672_0070
+  - RU_1d672_0071
+  - RU_1d672_0072
+  - RU_1d672_0073
+  - RU_1d672_0074
+  - RU_1d672_0075
+  - RU_1d672_0076
+  - RU_1d672_0077
+  - RU_1d672_0078
+  - RU_1d672_0079
+  - RU_1d672_0080
+  - RU_1d672_0081
+  - US_1d672_0082
+  - US_1d672_0083
+  - US_1d672_0084
+  - US_1d672_0085
+  - US_1d672_0086
+  - US_1d672_0087
+  - US_1d672_0088
+  - US_1d672_0089
+  - US_1d672_0090
+  - US_1d672_0091
+  - US_1d672_0092
+  - US_1d672_0093
+  - US_1d672_0094
+  - US_1d672_0095
+  - US_1d672_0096
+  - US_1d672_0097
+  - US_1d672_0098
+  - US_1d672_0099
+  - US_1d672_0100
+  - US_1d672_0101
+  - US_1d672_0102
+  - US_1d672_0103
+  - US_1d672_0104
+  - US_1d672_0105
+  - US_1d672_0106
+  - US_1d672_0107
+  - US_1d672_0108
+  - US_1d672_0109
+  - US_1d672_0110
+  - US_1d672_0111
+  - US_1d672_0112
+  - US_1d672_0113
+  - US_1d672_0114
+  - US_1d672_0115
+  - US_1d672_0116
+  - US_1d672_0117
+  - US_1d672_0118
+  - US_1d672_0119
+  - US_1d672_0120
+  - US_1d672_0121
+  - US_1d672_0122
+  - US_1d672_0123
+  - US_1d672_0124
+  - US_1d672_0125
+  - US_1d672_0126
+  - US_1d672_0127
   url: https://www.google.com/favicon.ico
   interval: 300
 rules:
