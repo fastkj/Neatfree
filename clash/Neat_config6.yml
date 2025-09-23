@@ -32,902 +32,206 @@ log-level: info
 mixed-port: 7890
 mode: rule
 proxies:
-- alterId: 0
-  cipher: auto
-  name: 美国_1
+- name: 美国_1
   network: tcp
-  port: 40762
-  server: 103.115.109.250
-  servername: ''
-  type: vmess
-  uuid: 35ce6e3a-4ddc-472c-9e9f-a34362c194e7
+  password: 0C3YaEDx46ODTFTcaF8lXlZ3zeqSlF33wZagexzRjIyODa8RDwp8XSCO93ygCSYcSYABA
+  port: 18332
+  server: blength.appagent.net
+  sni: blength.appagent.net
+  tls: true
+  type: trojan
+- name: 美国_2
+  network: tcp
+  password: OaFFcTDe9pSlez6x3SY8AARXwClzCRRDwSN8F3OqZAEYC0SE6F8gp3wCTCSTDYllcNceagCDD2C59S3
+  port: 28332
+  server: bolster.appagent.net
+  tls: true
+  type: trojan
+- name: 美国_3
+  network: tcp
+  password: Npgx9nO3OBaZF5yxARYl93lFX08TlR3waDla733az8SqXe3YS3zjESECSZpAw428a6SID
+  port: 443
+  server: metallic.isquirrel.net
+  tls: true
+  type: trojan
+- name: 美国_4
+  network: tcp
+  password: 0C3YaEDx46ODTFTcaF8lXlZ3zeqSlF33wZagexzRjIyODa8RDwp8XSCO93ygCSYcSYABA
+  port: 18332
+  server: blength.appagent.net
+  tls: true
+  type: trojan
+- name: 美国_5
+  network: tcp
+  password: eYaw9xlNDu4695IF3CyY2leZOTnY8ZSOD3Xa3DClz0xqZy7Z3eaBFaTKOSwCSAOyEap4D
+  port: 28333
+  server: connect.appagent.net
+  sni: connect.appagent.net
+  tls: true
+  type: trojan
+- name: 美国_6
+  network: tcp
+  password: eYaw9xlNDu4695IF3CyY2leZOTnY8ZSOD3Xa3DClz0xqZy7Z3eaBFaTKOSwCSAOyEap4D
+  port: 28333
+  server: connect.appagent.net
+  tls: true
+  type: trojan
+- name: 美国_7
+  network: tcp
+  password: F9OKESxKjSDExSeaOw7XyINxDzaOZqeKxCeIczYYED8ewZ2Yl9AppAySO3XwFNy3lCaXDDCFnlACSB0
+  port: 28334
+  server: pricey.appagent.net
+  tls: true
+  type: trojan
+- name: 美国_8
+  network: tcp
+  password: Npgx9nO3OBaZF5yxARYl93lFX08TlR3waDla733az8SqXe3YS3zjESECSZpAw428a6SID
+  port: 443
+  server: metallic.isquirrel.net
+  sni: metallic.isquirrel.net
+  tls: true
+  type: trojan
 - cipher: chacha20-ietf-poly1305
-  name: 日本
+  name: 美国_9
   password: Nk9asglDzHzjktVzTkvhaA
   port: 443
   server: arxfw2b78fi2q9hzylhn.freesocks.work
   type: ss
-- name: 美国_2
+- cipher: chacha20-ietf-poly1305
+  name: 美国_10
+  password: 9tqhMdIrTkgQ46PvhyAtMH
+  port: 443
+  server: switcher-nick-croquet.freesocks.work
+  type: ss
+- cipher: chacha20-ietf-poly1305
+  name: 美国_11
+  password: RFK38Cg7APneSB5cWDcpbm
+  port: 443
+  server: switcher-nick-croquet.freesocks.work
+  type: ss
+- alterId: 0
+  cipher: auto
+  name: 美国_12
   network: ws
-  password: slch2024
-  port: 2096
-  server: 185.59.218.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
+  port: 80
+  server: 2606:4700:3030::6815:4001
+  servername: 4496a55e-a4bc-c238-2c1e-5e66f7b0829c.8900604.xyz
+  type: vmess
+  uuid: 681eda16-e94d-439c-9067-b55db0c0543f
   ws-opts:
     headers:
-      Host: ocost-dy.wmlefl.cc
-    path: /Telegram
-- name: 美国_3
+      Host: 4496a55e-a4bc-c238-2c1e-5e66f7b0829c.8900604.xyz
+    path: /2uRsM4Z4Y8O5OsbJkA
+- alterId: 0
+  cipher: auto
+  name: 美国_13
   network: ws
-  password: slch2024
-  port: 2096
-  server: 185.148.107.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
+  port: 44579
+  server: 2001:bc8:32d7:302::10
+  servername: ''
+  type: vmess
+  uuid: 8e34e170-13ae-4892-9d20-05962acc9f84
   ws-opts:
     headers:
-      Host: ocost-dy.wmlefl.cc
-    path: /Telegram@ShadowProxy66
-- name: 美国_4
+      Host: ''
+    path: ''
+- alterId: 0
+  cipher: auto
+  name: 美国_14
   network: ws
-  password: slch2024
-  port: 2096
-  server: 185.251.80.195
-  sni: ocost-dy.wmlefl.cc
+  port: 443
+  server: ssssssssssssfffffffgh.2032.pp.ua
+  servername: ssssssssssssfffffffgh.2032.pp.ua
   tls: true
-  type: trojan
+  type: vmess
+  uuid: 4174b95d-115e-4d39-add6-1f8db95bb860
   ws-opts:
     headers:
-      Host: ocost-dy.wmlefl.cc
-    path: /由零开始
-- name: 美国_5
+      Host: ssssssssssssfffffffgh.2032.pp.ua
+    path: /6We3U9Df1WGxgFnoFPw1
+- alterId: 0
+  cipher: auto
+  name: 美国_15
   network: ws
-  password: slch2024
-  port: 2096
-  server: 185.18.250.195
-  sni: ocost-dy.wmlefl.cc
+  port: 443
+  server: dddvvbn.931.pp.ua
+  servername: dddvvbn.931.pp.ua
   tls: true
-  type: trojan
+  type: vmess
+  uuid: 4174b95d-115e-4d39-add6-1f8db95bb860
   ws-opts:
     headers:
-      Host: ocost-dy.wmlefl.cc
-    path: /由零开始
-- name: 美国_6
+      Host: dddvvbn.931.pp.ua
+    path: /6We3U9Df1WGxgFnoFPw1
+- alterId: 0
+  cipher: auto
+  name: 美国_16
   network: ws
-  password: slch2024
-  port: 2096
-  server: 185.18.250.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
+  port: 80
+  server: c004e6fe-t1i9s0-tm53cm-1ol97.hkt.tcpbbr.net
+  servername: broadcastlv.chat.bilibili.com
+  type: vmess
+  uuid: 93fb69fc-77cf-11ee-85ee-f23c91369f2d
   ws-opts:
     headers:
-      Host: ocost-dy.wmlefl.cc
+      Host: broadcastlv.chat.bilibili.com
     path: /
-- name: 美国_7
+- alterId: 0
+  cipher: auto
+  name: 美国_17
   network: ws
-  password: slch2024
-  port: 2096
-  server: 195.13.44.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
+  port: 80
+  server: c004e6fe-t1i9s0-tm53cm-1ol97.hkt.tcpbbr.net
+  servername: c004e6fe-t1i9s0-tm53cm-1ol97.hkt.tcpbbr.net
+  type: vmess
+  uuid: 93fb69fc-77cf-11ee-85ee-f23c91369f2d
   ws-opts:
     headers:
-      Host: ocost-dy.wmlefl.cc
-    path: /由零开始
-- name: 澳洲_1
-  network: ws
-  password: slch2024
-  port: 2096
-  server: 192.65.217.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
-  ws-opts:
-    headers:
-      Host: ocost-dy.wmlefl.cc
-    path: /Telegram
-- name: 美国_8
-  network: ws
-  password: slch2024
-  port: 2096
-  server: 185.148.107.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
-  ws-opts:
-    headers:
-      Host: ocost-dy.wmlefl.cc
-    path: /Telegram
-- name: 美国_9
-  network: ws
-  password: slch2024
-  port: 2096
-  server: 185.176.24.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
-  ws-opts:
-    headers:
-      Host: ocost-dy.wmlefl.cc
-    path: /Telegram🇨🇳
-- name: 荷兰
-  network: ws
-  password: slch2024
-  port: 2096
-  server: 188.164.248.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
-  ws-opts:
-    headers:
-      Host: ocost-dy.wmlefl.cc
-    path: /由零开始
-- name: 美国_10
-  network: ws
-  password: slch2024
-  port: 2096
-  server: 209.46.30.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
-  ws-opts:
-    headers:
-      Host: ocost-dy.wmlefl.cc
-    path: /由零开始
-- name: 澳洲_2
-  network: ws
-  password: slch2024
-  port: 2096
-  server: 192.65.217.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
-  ws-opts:
-    headers:
-      Host: ocost-dy.wmlefl.cc
-    path: Telegram
-- name: 西班牙_1
-  network: ws
-  password: slch2024
-  port: 2096
-  server: 185.251.82.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
-  ws-opts:
-    headers:
-      Host: ocost-dy.wmlefl.cc
-    path: Telegram
-- name: 美国_11
-  network: ws
-  password: slch2024
-  port: 2096
-  server: 199.68.156.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
-  ws-opts:
-    headers:
-      Host: ocost-dy.wmlefl.cc
-    path: /由零开始
-- name: 美国_12
-  network: ws
-  password: slch2024
-  port: 2096
-  server: 192.200.160.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
-  ws-opts:
-    headers:
-      Host: ocost-dy.wmlefl.cc
-    path: /由零开始
-- name: 法国_1
-  network: ws
-  password: slch2024
-  port: 2096
-  server: 185.7.240.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
-  ws-opts:
-    headers:
-      Host: ocost-dy.wmlefl.cc
-    path: /Telegram🇨🇳
-- name: 德国_1
-  network: ws
-  password: slch2024
-  port: 2096
-  server: 185.16.110.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
-  ws-opts:
-    headers:
-      Host: ocost-dy.wmlefl.cc
-    path: /由零开始
-- name: 美国_13
-  network: ws
-  password: slch2024
-  port: 2096
-  server: 193.124.224.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
-  ws-opts:
-    headers:
-      Host: ocost-dy.wmlefl.cc
-    path: /由零开始
-- name: 英国_1
-  network: ws
-  password: slch2024
-  port: 2096
-  server: 188.244.122.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
-  ws-opts:
-    headers:
-      Host: ocost-dy.wmlefl.cc
-    path: /由零开始
-- name: 美国_14
-  network: ws
-  password: slch2024
-  port: 2096
-  server: 185.176.24.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
-  ws-opts:
-    headers:
-      Host: ocost-dy.wmlefl.cc
-    path: Telegram
-- name: 美国_15
-  network: ws
-  password: slch2024
-  port: 2096
-  server: 188.42.145.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
-  ws-opts:
-    headers:
-      Host: ocost-dy.wmlefl.cc
-    path: /由零开始
-- name: 美国_16
-  network: ws
-  password: slch2024
-  port: 2096
-  server: 195.13.44.87
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
-  ws-opts:
-    headers:
-      Host: ocost-dy.wmlefl.cc
-    path: /Telegram
-- name: 美国_17
-  network: ws
-  password: slch2024
-  port: 2096
-  server: 185.251.83.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
-  ws-opts:
-    headers:
-      Host: ocost-dy.wmlefl.cc
-    path: /Telegram🇨🇳
-- name: 美国_18
-  network: ws
-  password: slch2024
-  port: 2096
-  server: 192.200.160.87
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
-  ws-opts:
-    headers:
-      Host: ocost-dy.wmlefl.cc
-    path: /Telegram
-- name: 美国_19
-  network: ws
-  password: slch2024
-  port: 2096
-  server: 192.0.54.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
-  ws-opts:
-    headers:
-      Host: ocost-dy.wmlefl.cc
-    path: /由零开始
-- name: 西班牙_2
-  network: ws
-  password: slch2024
-  port: 2096
-  server: 185.251.80.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
-  ws-opts:
-    headers:
-      Host: ocost-dy.wmlefl.cc
-    path: Telegram
-- name: 英国_2
-  network: ws
-  password: slch2024
-  port: 2096
-  server: 185.156.19.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
-  ws-opts:
-    headers:
-      Host: ocost-dy.wmlefl.cc
-    path: /由零开始
-- name: 英国_3
-  network: ws
-  password: slch2024
-  port: 2096
-  server: 185.156.19.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
-  ws-opts:
-    headers:
-      Host: ocost-dy.wmlefl.cc
-    path: /Telegram
-- name: 西班牙_3
-  network: ws
-  password: slch2024
-  port: 2096
-  server: 185.251.81.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
-  ws-opts:
-    headers:
-      Host: ocost-dy.wmlefl.cc
-    path: /由零开始
-- name: 新加坡
-  network: ws
-  password: slch2024
-  port: 2096
-  server: 185.18.184.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
-  ws-opts:
-    headers:
-      Host: ocost-dy.wmlefl.cc
-    path: /Telegram🇨🇳
-- name: 美国_20
-  network: ws
-  password: slch2024
-  port: 2096
-  server: 188.42.145.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
-  ws-opts:
-    headers:
-      Host: ocost-dy.wmlefl.cc
-    path: /Telegram
-- name: 美国_21
-  network: ws
-  password: slch2024
-  port: 2096
-  server: 185.251.81.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
-  ws-opts:
-    headers:
-      Host: ocost-dy.wmlefl.cc
-    path: /Telegram
-- name: 美国_22
-  network: ws
-  password: slch2024
-  port: 2096
-  server: 209.46.30.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
-  ws-opts:
-    headers:
-      Host: ocost-dy.wmlefl.cc
-    path: Telegram
-- name: 美国_23
-  network: ws
-  password: slch2024
-  port: 2096
-  server: 185.176.24.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
-  ws-opts:
-    headers:
-      Host: ocost-dy.wmlefl.cc
-    path: /由零开始
-- name: 美国_24
-  network: ws
-  password: slch2024
-  port: 2096
-  server: 212.183.88.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
-  ws-opts:
-    headers:
-      Host: ocost-dy.wmlefl.cc
-    path: /Telegram
-- name: 英国_4
-  network: ws
-  password: slch2024
-  port: 2096
-  server: 188.244.122.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
-  ws-opts:
-    headers:
-      Host: ocost-dy.wmlefl.cc
-    path: /Telegram
-- name: 西班牙_4
-  network: ws
-  password: slch2024
-  port: 2096
-  server: 185.251.82.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
-  ws-opts:
-    headers:
-      Host: ocost-dy.wmlefl.cc
-    path: /由零开始
-- name: 英国_5
-  network: ws
-  password: slch2024
-  port: 2096
-  server: 195.26.229.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
-  ws-opts:
-    headers:
-      Host: ocost-dy.wmlefl.cc
-    path: /由零开始
-- name: 美国_25
-  network: ws
-  password: slch2024
-  port: 2096
-  server: 185.251.83.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
-  ws-opts:
-    headers:
-      Host: ocost-dy.wmlefl.cc
-    path: /由零开始
-- name: 美国_26
-  network: ws
-  password: slch2024
-  port: 2096
-  server: 185.176.24.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
-  ws-opts:
-    headers:
-      Host: ocost-dy.wmlefl.cc
-    path: /Telegram
-- name: 法国_2
-  network: ws
-  password: slch2024
-  port: 2096
-  server: 185.7.240.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
-  ws-opts:
-    headers:
-      Host: ocost-dy.wmlefl.cc
-    path: Telegram
-- name: 美国_27
-  network: ws
-  password: slch2024
-  port: 2096
-  server: 199.181.197.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
-  ws-opts:
-    headers:
-      Host: ocost-dy.wmlefl.cc
-    path: Telegram
-- name: 美国_28
-  network: ws
-  password: slch2024
-  port: 2096
-  server: 185.176.24.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
-  ws-opts:
-    headers:
-      Host: ocost-dy.wmlefl.cc
-    path: /TelegramU0001F1E8U0001F1F3
-- name: 美国_29
-  network: ws
-  password: slch2024
-  port: 2096
-  server: 188.42.88.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
-  ws-opts:
-    headers:
-      Host: ocost-dy.wmlefl.cc
-    path: /由零开始
-- name: 美国_30
-  network: ws
-  password: slch2024
-  port: 2096
-  server: 199.34.230.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
-  ws-opts:
-    headers:
-      Host: ocost-dy.wmlefl.cc
-    path: /Telegram
-- name: 德国_2
-  network: ws
-  password: slch2024
-  port: 2096
-  server: 185.16.110.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
-  ws-opts:
-    headers:
-      Host: ocost-dy.wmlefl.cc
-    path: /Telegram🇨🇳
-- name: 美国_31
-  network: ws
-  password: slch2024
-  port: 2096
-  server: 194.76.18.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
-  ws-opts:
-    headers:
-      Host: ocost-dy.wmlefl.cc
-    path: /Telegram
-- name: 美国_32
-  network: ws
-  password: slch2024
-  port: 2096
-  server: 192.0.63.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
-  ws-opts:
-    headers:
-      Host: ocost-dy.wmlefl.cc
-    path: /Telegram
-- name: 德国_3
-  network: ws
-  password: slch2024
-  port: 2096
-  server: 185.16.110.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
-  ws-opts:
-    headers:
-      Host: ocost-dy.wmlefl.cc
-    path: /Telegram
-- name: 美国_33
-  network: ws
-  password: slch2024
-  port: 2096
-  server: 192.200.160.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
-  ws-opts:
-    headers:
-      Host: ocost-dy.wmlefl.cc
-    path: /Telegram
-- name: 美国_34
-  network: ws
-  password: slch2024
-  port: 2096
-  server: 195.13.45.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
-  ws-opts:
-    headers:
-      Host: ocost-dy.wmlefl.cc
-    path: Telegram
-- name: 英国_6
-  network: ws
-  password: slch2024
-  port: 2096
-  server: 195.26.229.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
-  ws-opts:
-    headers:
-      Host: ocost-dy.wmlefl.cc
-    path: /Telegram
-- name: 美国_35
-  network: ws
-  password: slch2024
-  port: 2096
-  server: 185.148.106.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
-  ws-opts:
-    headers:
-      Host: ocost-dy.wmlefl.cc
-    path: /Telegram
-- name: 美国_36
-  network: ws
-  password: slch2024
-  port: 2096
-  server: 185.174.138.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
-  ws-opts:
-    headers:
-      Host: ocost-dy.wmlefl.cc
-    path: /由零开始
-- name: 美国_37
-  network: ws
-  password: slch2024
-  port: 2096
-  server: 209.46.30.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
-  ws-opts:
-    headers:
-      Host: ocost-dy.wmlefl.cc
-    path: /Telegram
-- name: 美国_38
-  network: ws
-  password: slch2024
-  port: 2096
-  server: 188.42.145.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
-  ws-opts:
-    headers:
-      Host: ocost-dy.wmlefl.cc
-    path: /Telegram🇨🇳
-- name: 澳洲_3
-  network: ws
-  password: slch2024
-  port: 2096
-  server: 192.65.217.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
-  ws-opts:
-    headers:
-      Host: ocost-dy.wmlefl.cc
-    path: /由零开始
-- name: 美国_39
-  network: ws
-  password: slch2024
-  port: 2096
-  server: 195.13.44.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
-  ws-opts:
-    headers:
-      Host: ocost-dy.wmlefl.cc
-    path: /Telegram
-- name: 美国_40
-  network: ws
-  password: slch2024
-  port: 2096
-  server: 185.148.105.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
-  ws-opts:
-    headers:
-      Host: ocost-dy.wmlefl.cc
-    path: /TelegramShadowProxy66
-- name: 美国_41
-  network: ws
-  password: slch2024
-  port: 2096
-  server: 195.13.45.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
-  ws-opts:
-    headers:
-      Host: ocost-dy.wmlefl.cc
-    path: /由零开始
-- name: 美国_42
-  network: ws
-  password: slch2024
-  port: 2096
-  server: 185.174.138.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
-  ws-opts:
-    headers:
-      Host: ocost-dy.wmlefl.cc
-    path: /Telegram
-- name: 西班牙_5
-  network: ws
-  password: slch2024
-  port: 2096
-  server: 185.251.83.195
-  sni: ocost-dy.wmlefl.cc
-  tls: true
-  type: trojan
-  ws-opts:
-    headers:
-      Host: ocost-dy.wmlefl.cc
-    path: Telegram
+      Host: c004e6fe-t1i9s0-tm53cm-1ol97.hkt.tcpbbr.net
+    path: /
 proxy-groups:
 - name: 🚀 节点选择
   proxies:
   - ♻️ 自动选择
   - DIRECT
   - 美国_1
-  - 日本
   - 美国_2
   - 美国_3
   - 美国_4
   - 美国_5
   - 美国_6
   - 美国_7
-  - 澳洲_1
   - 美国_8
   - 美国_9
-  - 荷兰
   - 美国_10
-  - 澳洲_2
-  - 西班牙_1
   - 美国_11
   - 美国_12
-  - 法国_1
-  - 德国_1
   - 美国_13
-  - 英国_1
   - 美国_14
   - 美国_15
   - 美国_16
   - 美国_17
-  - 美国_18
-  - 美国_19
-  - 西班牙_2
-  - 英国_2
-  - 英国_3
-  - 西班牙_3
-  - 新加坡
-  - 美国_20
-  - 美国_21
-  - 美国_22
-  - 美国_23
-  - 美国_24
-  - 英国_4
-  - 西班牙_4
-  - 英国_5
-  - 美国_25
-  - 美国_26
-  - 法国_2
-  - 美国_27
-  - 美国_28
-  - 美国_29
-  - 美国_30
-  - 德国_2
-  - 美国_31
-  - 美国_32
-  - 德国_3
-  - 美国_33
-  - 美国_34
-  - 英国_6
-  - 美国_35
-  - 美国_36
-  - 美国_37
-  - 美国_38
-  - 澳洲_3
-  - 美国_39
-  - 美国_40
-  - 美国_41
-  - 美国_42
-  - 西班牙_5
   type: select
 - interval: 300
   name: ♻️ 自动选择
   proxies:
   - 美国_1
-  - 日本
   - 美国_2
   - 美国_3
   - 美国_4
   - 美国_5
   - 美国_6
   - 美国_7
-  - 澳洲_1
   - 美国_8
   - 美国_9
-  - 荷兰
   - 美国_10
-  - 澳洲_2
-  - 西班牙_1
   - 美国_11
   - 美国_12
-  - 法国_1
-  - 德国_1
   - 美国_13
-  - 英国_1
   - 美国_14
   - 美国_15
   - 美国_16
   - 美国_17
-  - 美国_18
-  - 美国_19
-  - 西班牙_2
-  - 英国_2
-  - 英国_3
-  - 西班牙_3
-  - 新加坡
-  - 美国_20
-  - 美国_21
-  - 美国_22
-  - 美国_23
-  - 美国_24
-  - 英国_4
-  - 西班牙_4
-  - 英国_5
-  - 美国_25
-  - 美国_26
-  - 法国_2
-  - 美国_27
-  - 美国_28
-  - 美国_29
-  - 美国_30
-  - 德国_2
-  - 美国_31
-  - 美国_32
-  - 德国_3
-  - 美国_33
-  - 美国_34
-  - 英国_6
-  - 美国_35
-  - 美国_36
-  - 美国_37
-  - 美国_38
-  - 澳洲_3
-  - 美国_39
-  - 美国_40
-  - 美国_41
-  - 美国_42
-  - 西班牙_5
   tolerance: 5000
   type: url-test
   url: http://www.gstatic.com/generate_204
@@ -948,69 +252,22 @@ proxy-groups:
   - 🎯 全球直连
   - ♻️ 自动选择
   - 美国_1
-  - 日本
   - 美国_2
   - 美国_3
   - 美国_4
   - 美国_5
   - 美国_6
   - 美国_7
-  - 澳洲_1
   - 美国_8
   - 美国_9
-  - 荷兰
   - 美国_10
-  - 澳洲_2
-  - 西班牙_1
   - 美国_11
   - 美国_12
-  - 法国_1
-  - 德国_1
   - 美国_13
-  - 英国_1
   - 美国_14
   - 美国_15
   - 美国_16
   - 美国_17
-  - 美国_18
-  - 美国_19
-  - 西班牙_2
-  - 英国_2
-  - 英国_3
-  - 西班牙_3
-  - 新加坡
-  - 美国_20
-  - 美国_21
-  - 美国_22
-  - 美国_23
-  - 美国_24
-  - 英国_4
-  - 西班牙_4
-  - 英国_5
-  - 美国_25
-  - 美国_26
-  - 法国_2
-  - 美国_27
-  - 美国_28
-  - 美国_29
-  - 美国_30
-  - 德国_2
-  - 美国_31
-  - 美国_32
-  - 德国_3
-  - 美国_33
-  - 美国_34
-  - 英国_6
-  - 美国_35
-  - 美国_36
-  - 美国_37
-  - 美国_38
-  - 澳洲_3
-  - 美国_39
-  - 美国_40
-  - 美国_41
-  - 美国_42
-  - 西班牙_5
   type: select
 rules:
 - DOMAIN-SUFFIX,acl4.ssr,🎯 全球直连
