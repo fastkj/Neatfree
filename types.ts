@@ -36,6 +36,6 @@ export const DEFAULT_OWNER = "fastkj";
 export const DEFAULT_REPO = "neatfreeoo";
 
 // 用户要求的默认显示域名
-export const DEFAULT_DOMAIN = "https://clash.fastkj.eu.org";
+export const DEFAULT_DOMAIN = "https://clash1.fastkj.eu.org";
 
 export const DEFAULT_SOURCES: string[] = [];
