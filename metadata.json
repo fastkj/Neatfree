@@ -1,0 +1,5 @@
+{
+  "name": "ClashHub Sync",
+  "description": "A minimalist Clash subscription manager and sync tool using GitHub as a backend.",
+  "requestFramePermissions": []
+}
