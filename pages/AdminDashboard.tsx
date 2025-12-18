@@ -62,6 +62,11 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
     }
   };
 
+  const getExtensionFromUrl = (url: string): string => {
+    const match = url.match(/\.(yaml|yml|txt|conf|ini|json)$/i);
+    return match ? match[0].toLowerCase() : '.yaml';
+  };
+
   const handleSaveAndSync = async () => {
     if (!localConfig.githubToken || !localConfig.repoName || !localConfig.repoOwner) {
         alert("配置不完整，请填写 GitHub 仓库和 Token");
@@ -83,14 +88,18 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
         addLog("✅ 订阅源 sources.json 同步完成");
 
         const existingFiles = await fetchRepoDir(localConfig, 'clash') || [];
-        const neatConfigFiles = existingFiles.filter(f => /^Neat_config\d+\.(yml|yaml)$/.test(f.name));
+        const neatConfigFiles = existingFiles.filter(f => /^Neat_config\d+\.(yml|yaml|txt|conf|ini|json)$/i.test(f.name));
         const filteredSources = localSources.filter(s => s.trim().startsWith('http'));
         const newCount = filteredSources.length;
+        
+        const activeFileNames = new Set<string>();
 
         for (let i = 0; i < newCount; i++) {
             const sourceUrl = filteredSources[i];
-            // 变更点: 后缀改为 .yaml
-            const fileName = `Neat_config${i + 1}.yaml`;
+            const ext = getExtensionFromUrl(sourceUrl);
+            const fileName = `Neat_config${i + 1}${ext}`;
+            activeFileNames.add(fileName);
+            
             const targetFilename = `clash/${fileName}`;
             const existingFile = neatConfigFiles.find(f => f.name === fileName);
             try {
@@ -102,13 +111,8 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
             }
         }
 
-        const orphans = neatConfigFiles.filter(f => {
-          const match = f.name.match(/Neat_config(\d+)/);
-          if (!match) return false;
-          const index = parseInt(match[1]);
-          // 如果后缀是 .yml，且同名 .yaml 已经存在，或者 index 超过了当前数量，就清理
-          return index > newCount || f.name.endsWith('.yml');
-        });
+        // 清理不再需要的旧文件（索引超出或后缀不匹配的）
+        const orphans = neatConfigFiles.filter(f => !activeFileNames.has(f.name));
 
         for (const orphan of orphans) {
           try {

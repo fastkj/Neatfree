@@ -60,7 +60,7 @@ export const PublicHome: React.FC<PublicHomeProps> = ({ config, sources, customL
         await probeKnownFiles();
       } else {
         const subFiles = files.filter(f => 
-          (f.name.endsWith('.yaml') || f.name.endsWith('.yml')) && f.type === 'file'
+          /\.(yaml|yml|txt|conf|ini|json)$/i.test(f.name) && f.type === 'file'
         );
         const sorted = sortFiles(subFiles);
         setRepoFiles(sorted);
@@ -78,10 +78,12 @@ export const PublicHome: React.FC<PublicHomeProps> = ({ config, sources, customL
   };
 
   const probeKnownFiles = async () => {
-    // 默认查找 .yaml 后缀的文件
     const knownNames = [
-      'Neat_config1.yaml', 'Neat_config2.yaml', 'Neat_config3.yaml', 
-      'Neat_config4.yaml', 'Neat_config5.yaml', 'Neat_config6.yaml', 'Neat_config7.yaml'
+      'Neat_config1.yaml', 'Neat_config1.yml', 'Neat_config1.txt',
+      'Neat_config2.yaml', 'Neat_config2.yml', 'Neat_config2.txt',
+      'Neat_config3.yaml', 'Neat_config3.yml', 'Neat_config3.txt',
+      'Neat_config4.yaml', 'Neat_config4.yml', 'Neat_config4.txt',
+      'Neat_config5.yaml', 'Neat_config5.yml', 'Neat_config5.txt'
     ];
     const found: RepoFile[] = [];
     await Promise.all(knownNames.map(async (name) => {
@@ -114,9 +116,7 @@ export const PublicHome: React.FC<PublicHomeProps> = ({ config, sources, customL
   };
 
   const getFormatName = (name: string) => {
-    // 移除 .yml 或 .yaml 后缀
-    let cleanName = name.replace(/\.(yml|yaml)$/i, '');
-    // 如果是 Neat_config 开头的，改为 Clash订阅源
+    let cleanName = name.replace(/\.(yml|yaml|txt|conf|ini|json)$/i, '');
     if (cleanName.startsWith('Neat_config')) {
       const index = cleanName.replace('Neat_config', '');
       return `Clash订阅源 ${index}`.trim();
@@ -217,19 +217,14 @@ export const PublicHome: React.FC<PublicHomeProps> = ({ config, sources, customL
             const displayName = getFormatName(file.name);
 
             return (
-              <div key={file.name} className="flex flex-col sm:flex-row items-center justify-between p-4 sm:p-6 rounded-[1.5rem] sm:rounded-[2rem] bg-day-card dark:bg-night-card shadow-sm border border-black/5 dark:border-white/5 hover:border-black/10 dark:hover:border-white/20 transition-all duration-300 group">
-                <div className="flex-1 min-w-0 w-full sm:mr-4">
-                  <div className="flex items-center mb-1.5">
-                    <span className="font-black text-day-text dark:text-night-text text-sm sm:text-lg truncate">{displayName}</span>
-                  </div>
-                  <p className="text-[9px] sm:text-[11px] font-mono break-all text-gray-400 bg-black/5 dark:bg-white/5 p-2 sm:p-3 rounded-xl select-all border border-black/5 dark:border-white/5 group-hover:border-black/10 transition-colors">
-                    {subUrl}
-                  </p>
+              <div key={file.name} className="flex flex-row items-center justify-between p-5 sm:p-7 rounded-[1.5rem] sm:rounded-[2.5rem] bg-day-card dark:bg-night-card shadow-sm border border-black/5 dark:border-white/5 hover:border-black/10 dark:hover:border-white/20 transition-all duration-300 group">
+                <div className="flex-1 min-w-0">
+                  <span className="font-black text-day-text dark:text-night-text text-base sm:text-xl truncate block">{displayName}</span>
                 </div>
-                <div className="w-full sm:w-auto mt-3 sm:mt-0 flex items-center h-full">
+                <div className="shrink-0 ml-4">
                   <button 
                     onClick={() => handleCopy(subUrl, index)} 
-                    className={`w-full sm:w-auto flex items-center justify-center px-5 sm:px-10 py-2.5 sm:py-4 rounded-xl sm:rounded-2xl text-[11px] sm:text-sm font-black transition-all shadow-sm ${
+                    className={`flex items-center justify-center px-6 sm:px-12 py-3 sm:py-5 rounded-xl sm:rounded-[1.5rem] text-[12px] sm:text-base font-black transition-all shadow-sm ${
                       isCopied 
                         ? 'bg-zinc-100 dark:bg-zinc-800 text-zinc-500' 
                         : 'bg-day-text dark:bg-night-text text-day-bg dark:text-night-bg hover:shadow-lg hover:-translate-y-0.5 active:scale-95'
