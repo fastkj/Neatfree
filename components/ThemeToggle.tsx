@@ -5,17 +5,24 @@ export const ThemeToggle: React.FC = () => {
   const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
-    // Check local storage or system preference
-    const saved = localStorage.getItem('theme');
-    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
-    if (saved === 'dark' || (!saved && systemDark)) {
-      setIsDark(true);
-      document.documentElement.classList.add('dark');
-    } else {
-      setIsDark(false);
-      document.documentElement.classList.remove('dark');
-    }
+    const checkTimeAndApply = () => {
+      const hour = new Date().getHours();
+      // 早上5点(含)到晚上8点(不含20:00)为日间
+      const isDayTime = hour >= 5 && hour < 20;
+      const shouldBeDark = !isDayTime;
+      
+      setIsDark(shouldBeDark);
+      if (shouldBeDark) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    };
+
+    checkTimeAndApply();
+    // 每分钟检查一次，确保准时切换
+    const interval = setInterval(checkTimeAndApply, 60000);
+    return () => clearInterval(interval);
   }, []);
 
   const toggle = () => {
@@ -23,10 +30,8 @@ export const ThemeToggle: React.FC = () => {
     setIsDark(newMode);
     if (newMode) {
       document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
     } else {
       document.documentElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
     }
   };
 

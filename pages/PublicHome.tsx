@@ -59,7 +59,6 @@ export const PublicHome: React.FC<PublicHomeProps> = ({ config, sources, customL
       if (files === null || (Array.isArray(files) && files.length === 0)) {
         await probeKnownFiles();
       } else {
-        // Filter out link.json and sources.json specifically
         const subFiles = files.filter(f => 
           /\.(yaml|yml|txt|conf|ini)$/i.test(f.name) && 
           f.type === 'file' &&
@@ -120,15 +119,6 @@ export const PublicHome: React.FC<PublicHomeProps> = ({ config, sources, customL
     return str.startsWith('http');
   };
 
-  const getFormatName = (name: string) => {
-    let cleanName = name.replace(/\.(yml|yaml|txt|conf|ini|json)$/i, '');
-    if (cleanName.startsWith('Neat_config')) {
-      const index = cleanName.replace('Neat_config', '');
-      return `Clash订阅源 ${index}`.trim();
-    }
-    return cleanName;
-  };
-
   return (
     <main className="max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-12 space-y-6 sm:space-y-10 animate-fade-in">
       <div className="text-center space-y-2">
@@ -150,10 +140,42 @@ export const PublicHome: React.FC<PublicHomeProps> = ({ config, sources, customL
               更新时间：{updateTime}
             </div>
             <div className="space-y-2 text-xs sm:text-sm text-gray-500 dark:text-gray-400 leading-relaxed font-medium">
-              <p>写了个自动获取公开节点脚本，该项目自动获取以及自动推送，如果某个订阅源失效请及时反馈以便修复，后期维护还得靠大家及时反馈，该项目只能当备用方案使用。</p>
+              <p>写了个自动获取公开节点脚本，该项目自动获取以及自动推送，如果某个订阅源失效请及时反馈以便修复。</p>
               <p className="font-bold text-day-text dark:text-night-text">域名随时更换</p>
             </div>
           </div>
+
+          {customLinks.length > 0 && (
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 pt-2">
+              {customLinks.map((link) => (
+                <a
+                  key={link.id}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative flex items-center gap-3 p-2.5 rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 border border-white/10 overflow-hidden"
+                  style={{ 
+                    backgroundColor: link.color || '#3b82f6',
+                    color: '#fff'
+                  }}
+                >
+                  <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors" />
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 p-1.5 rounded-xl flex items-center justify-center shrink-0 bg-white/20 backdrop-blur-md border border-white/20 shadow-sm relative z-10 overflow-hidden">
+                    {link.icon && isUrl(link.icon) ? (
+                      <img src={link.icon} alt={link.name} className="w-full h-full object-contain" />
+                    ) : (
+                      <span className="drop-shadow-lg text-sm sm:text-lg">{link.icon || '🔗'}</span>
+                    )}
+                  </div>
+                  <div className="flex-1 min-w-0 relative z-10">
+                    <span className="font-black text-xs sm:text-sm truncate block tracking-tight">
+                      {link.name}
+                    </span>
+                  </div>
+                </a>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
@@ -167,13 +189,6 @@ export const PublicHome: React.FC<PublicHomeProps> = ({ config, sources, customL
         </div>
 
         <div className="grid gap-4 sm:gap-6">
-          {isError && repoFiles.length === 0 && (
-            <div className="text-center py-12 border-2 border-dashed border-black/5 dark:border-white/5 rounded-3xl">
-              <WifiOff className="w-8 h-8 text-gray-300 mx-auto mb-3" />
-              <p className="text-gray-400 font-bold text-xs">数据获取异常，请稍后刷新</p>
-            </div>
-          )}
-
           {isLoading && repoFiles.length === 0 && (
             <div className="flex flex-col items-center justify-center py-12 space-y-3">
               <Loader2 className="w-6 h-6 text-day-text dark:text-night-text animate-spin opacity-50" />
@@ -185,29 +200,28 @@ export const PublicHome: React.FC<PublicHomeProps> = ({ config, sources, customL
             const displayDomain = config.customDomain || "https://clash1.fastkj.eu.org";
             const subUrl = `${displayDomain.replace(/\/$/, '')}/clash/${file.name}`;
             const isCopied = copiedIndex === index;
-            const displayName = getFormatName(file.name);
 
             return (
-              <div key={file.name} className="p-5 sm:p-7 rounded-[1.5rem] sm:rounded-[2.5rem] bg-day-card dark:bg-night-card shadow-sm border border-black/5 dark:border-white/5 hover:border-black/10 dark:hover:border-white/20 transition-all duration-300 group">
+              <div key={file.name} className="p-6 sm:p-8 rounded-[2rem] sm:rounded-[2.5rem] bg-day-card dark:bg-night-card shadow-lg border border-black/[0.03] dark:border-white/5 transition-all duration-300 group">
                 <div className="mb-4">
                   <span className="font-black text-day-text dark:text-night-text text-base sm:text-xl truncate block">
-                    {displayName}
+                    {file.name}
                   </span>
                 </div>
                 
                 <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 items-stretch">
                   <div className="flex-1 min-w-0">
-                    <p className="h-full flex items-center text-[10px] sm:text-xs font-mono text-gray-400 dark:text-zinc-500 break-all bg-black/5 dark:bg-white/5 px-4 py-3 sm:py-4 rounded-xl sm:rounded-2xl border border-black/5 dark:border-white/5">
+                    <div className="h-full flex items-center text-[10px] sm:text-xs font-mono text-gray-400 dark:text-zinc-500 break-all bg-black/5 dark:bg-white/5 px-4 py-3 sm:py-3.5 rounded-xl sm:rounded-2xl border border-black/5 dark:border-white/5 min-h-[44px] sm:min-h-[52px]">
                       {subUrl}
-                    </p>
+                    </div>
                   </div>
                   
                   <button 
                     onClick={() => handleCopy(subUrl, index)} 
-                    className={`shrink-0 flex items-center justify-center px-6 sm:px-10 py-3 sm:py-4 rounded-xl sm:rounded-2xl text-[12px] sm:text-sm font-black transition-all shadow-sm whitespace-nowrap ${
+                    className={`shrink-0 flex items-center justify-center px-6 sm:px-10 py-3 sm:py-3.5 rounded-xl sm:rounded-2xl text-[12px] sm:text-sm font-black transition-all shadow-md min-h-[44px] sm:min-h-[52px] ${
                       isCopied 
                         ? 'bg-zinc-100 dark:bg-zinc-800 text-zinc-500' 
-                        : 'bg-day-text dark:bg-night-text text-day-bg dark:text-night-bg hover:shadow-lg hover:-translate-y-0.5 active:scale-95'
+                        : 'bg-day-text dark:bg-night-text text-white dark:text-night-bg hover:opacity-90 active:scale-95'
                     }`}
                   >
                     {isCopied ? '已复制' : '复制订阅'}
