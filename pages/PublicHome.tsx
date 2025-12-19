@@ -182,7 +182,7 @@ export const PublicHome: React.FC<PublicHomeProps> = ({ config, sources, customL
           )}
 
           {repoFiles.map((file, index) => {
-            const displayDomain = config.customDomain || "https://clash2.fastkj.eu.org";
+            const displayDomain = config.customDomain || "https://clash1.fastkj.eu.org";
             const subUrl = `${displayDomain.replace(/\/$/, '')}/clash/${file.name}`;
             const isCopied = copiedIndex === index;
             const displayName = getFormatName(file.name);
