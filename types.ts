@@ -4,6 +4,8 @@ export interface AppConfig {
   repoOwner: string;
   repoName: string;
   customDomain: string; 
+  autoPushEnabled?: boolean;
+  lastPushTime?: number;
 }
 
 export interface CustomLink {
@@ -40,3 +42,4 @@ export const DEFAULT_REPO = "neatfreeoo";
 export const DEFAULT_DOMAIN = "https://clash1.fastkj.eu.org";
 
 export const DEFAULT_SOURCES: string[] = [];
+

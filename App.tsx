@@ -4,7 +4,7 @@ import { Header } from './components/Header';
 import { PublicHome } from './pages/PublicHome';
 import { AdminDashboard } from './pages/AdminDashboard';
 import { AppConfig, CustomLink, DEFAULT_SOURCES, DEFAULT_DOMAIN, DEFAULT_OWNER, DEFAULT_REPO } from './types';
-import { fetchCustomLinks, fetchSources } from './services/githubService';
+import { fetchCustomLinks, fetchSources, fetchRawContent, fetchRepoDir, uploadToRepo, deleteRepoFile } from './services/githubService';
 
 // Storage Keys
 const STORAGE_CONFIG = 'clashhub_config_v3'; 
@@ -19,7 +19,8 @@ const App: React.FC = () => {
     githubToken: '', 
     repoOwner: DEFAULT_OWNER,
     repoName: DEFAULT_REPO,
-    customDomain: DEFAULT_DOMAIN
+    customDomain: DEFAULT_DOMAIN,
+    autoPushEnabled: false
   });
 
   const [sources, setSources] = useState<string[]>(DEFAULT_SOURCES);
@@ -34,7 +35,8 @@ const App: React.FC = () => {
         setConfig({
           ...parsed,
           repoOwner: parsed.repoOwner || DEFAULT_OWNER,
-          repoName: parsed.repoName || DEFAULT_REPO
+          repoName: parsed.repoName || DEFAULT_REPO,
+          autoPushEnabled: !!parsed.autoPushEnabled
         });
       } catch (e) {
         console.error("Failed to parse config", e);
@@ -58,12 +60,60 @@ const App: React.FC = () => {
     }
   }, []);
 
+  // 24小时自动推送逻辑
+  useEffect(() => {
+    const handleAutoPush = async () => {
+      if (!config.autoPushEnabled || !config.githubToken || !config.repoOwner || !config.repoName) return;
+      
+      const now = Date.now();
+      const lastPush = config.lastPushTime || 0;
+      const twentyFourHours = 24 * 60 * 60 * 1000;
+
+      if (now - lastPush >= twentyFourHours) {
+        console.log("🚀 触发 24 小时自动推送...");
+        try {
+          const filteredSources = sources.filter(s => s.trim().startsWith('http'));
+          const existingFiles = await fetchRepoDir(config, 'clash') || [];
+          const neatConfigFiles = existingFiles.filter(f => /^Neat_config\d+\..+$/.test(f.name));
+          
+          const activeFileNames = new Set<string>();
+          for (let i = 0; i < filteredSources.length; i++) {
+            const url = filteredSources[i];
+            const extMatch = url.match(/\.(yaml|yml|txt|conf|ini|json)$/i);
+            const ext = extMatch ? extMatch[0].toLowerCase() : '.yaml';
+            const fileName = `Neat_config${i + 1}${ext}`;
+            activeFileNames.add(fileName);
+
+            const content = await fetchRawContent(url);
+            const existing = neatConfigFiles.find(f => f.name === fileName);
+            await uploadToRepo(config, `clash/${fileName}`, content, `Auto-update ${fileName}`, existing?.sha);
+          }
+
+          // 清理旧文件
+          const orphans = neatConfigFiles.filter(f => !activeFileNames.has(f.name));
+          for (const orphan of orphans) {
+            await deleteRepoFile(config, `clash/${orphan.name}`, orphan.sha);
+          }
+
+          // 更新推送时间
+          const newConfig = { ...config, lastPushTime: now };
+          setConfig(newConfig);
+          localStorage.setItem(STORAGE_CONFIG, JSON.stringify(newConfig));
+          console.log("✅ 自动推送圆满完成");
+        } catch (e) {
+          console.error("❌ 自动推送失败:", e);
+        }
+      }
+    };
+
+    handleAutoPush();
+  }, [config.autoPushEnabled, config.githubToken, sources]);
+
   // Load latest links & sources from GitHub on mount or repo change
   useEffect(() => {
     const loadRemoteData = async () => {
       if (config.repoOwner && config.repoName) {
         try {
-          // 同时加载按钮和源列表 (从 link.json 和 sources.json)
           const [links, remoteSources] = await Promise.all([
             fetchCustomLinks(config),
             fetchSources(config)

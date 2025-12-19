@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { RefreshCw, Plus, Trash2, Github, Link as LinkIcon, X, Settings2, ShieldCheck, Link2, Edit3, Save, Loader2 } from 'lucide-react';
+import { RefreshCw, Plus, Trash2, Github, Link as LinkIcon, X, Settings2, ShieldCheck, Link2, Edit3, Save, Loader2, Clock } from 'lucide-react';
 import { AppConfig, CustomLink, RepoFile, DEFAULT_SOURCES } from '../types';
 import { fetchRawContent, getRepoFile, uploadToRepo, saveCustomLinks, saveSources, fetchRepoDir, deleteRepoFile } from '../services/githubService';
 
@@ -78,16 +78,19 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
     addLog("🚀 开始保存并深度同步...");
     
     try {
-        onConfigChange(localConfig);
+        const now = Date.now();
+        const configToSave = { ...localConfig, lastPushTime: now };
+        
+        onConfigChange(configToSave);
         onSourcesChange(localSources);
         onCustomLinksChange(localLinks);
 
-        await saveCustomLinks(localConfig, localLinks);
+        await saveCustomLinks(configToSave, localLinks);
         addLog("✅ 按钮配置 link.json 同步完成");
-        await saveSources(localConfig, localSources);
+        await saveSources(configToSave, localSources);
         addLog("✅ 订阅源 sources.json 同步完成");
 
-        const existingFiles = await fetchRepoDir(localConfig, 'clash') || [];
+        const existingFiles = await fetchRepoDir(configToSave, 'clash') || [];
         const neatConfigFiles = existingFiles.filter(f => /^Neat_config\d+\..+$/.test(f.name));
         const filteredSources = localSources.filter(s => s.trim().startsWith('http'));
         const newCount = filteredSources.length;
@@ -104,19 +107,17 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
             const existingFile = neatConfigFiles.find(f => f.name === fileName);
             try {
                 const rawContent = await fetchRawContent(sourceUrl);
-                await uploadToRepo(localConfig, targetFilename, rawContent, `Update ${fileName}`, existingFile?.sha);
+                await uploadToRepo(configToSave, targetFilename, rawContent, `Update ${fileName}`, existingFile?.sha);
                 addLog(`✅ 配置更新: ${fileName}`);
             } catch (err: any) {
                 addLog(`⚠️ 失败 (${fileName}): ${err.message}`);
             }
         }
 
-        // Cleanup orphans (different extension for same index or index too high)
         const orphans = neatConfigFiles.filter(f => !activeFileNames.has(f.name));
-
         for (const orphan of orphans) {
           try {
-            await deleteRepoFile(localConfig, `clash/${orphan.name}`, orphan.sha);
+            await deleteRepoFile(configToSave, `clash/${orphan.name}`, orphan.sha);
             addLog(`🗑️ 已清理多余文件: ${orphan.name}`);
           } catch (e: any) {
             addLog(`⚠️ 清理失败: ${e.message}`);
@@ -226,7 +227,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
               <h3 className="font-black text-base sm:text-lg flex items-center gap-2">
                 <Github className="w-4 h-4 text-gray-400" /> GitHub 存储
               </h3>
-              <div className="space-y-3">
+              <div className="space-y-4">
                 <div className="space-y-1">
                   <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest px-1">仓库路径</label>
                   <input className="w-full px-4 py-3 rounded-xl bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/10 outline-none font-mono text-xs" value={repoPath} onChange={e => handleRepoPathChange(e.target.value)} placeholder="User/Repo" />
@@ -234,6 +235,20 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                 <div className="space-y-1">
                   <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest px-1">GitHub Token</label>
                   <input type="password" className="w-full px-4 py-3 rounded-xl bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/10 outline-none font-mono text-xs" value={localConfig.githubToken} onChange={e => setLocalConfig({...localConfig, githubToken: e.target.value})} placeholder="输入 Token 以启用云同步" />
+                </div>
+                
+                {/* 新增自动推送开关 */}
+                <div className="flex items-center justify-between p-3 bg-black/5 dark:bg-white/5 rounded-xl border border-black/5">
+                  <div className="flex items-center gap-2">
+                    <Clock className="w-4 h-4 text-gray-400" />
+                    <span className="text-xs font-black">24小时自动推送</span>
+                  </div>
+                  <button 
+                    onClick={() => setLocalConfig({...localConfig, autoPushEnabled: !localConfig.autoPushEnabled})}
+                    className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none ${localConfig.autoPushEnabled ? 'bg-day-text dark:bg-night-text' : 'bg-gray-200 dark:bg-zinc-700'}`}
+                  >
+                    <span className={`inline-block h-4 w-4 transform rounded-full bg-white dark:bg-night-bg transition-transform ${localConfig.autoPushEnabled ? 'translate-x-6' : 'translate-x-1'}`} />
+                  </button>
                 </div>
               </div>
             </section>
