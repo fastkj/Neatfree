@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { Database, WifiOff, Loader2, Megaphone, ArrowRight, Download, X, ExternalLink } from 'lucide-react';
-import { AppConfig, CustomLink, RepoFile, RemoteBulletin, RemoteAd, RemoteUpdate } from '../types';
+import { AppConfig, CustomLink, RepoFile, RemoteBulletin, RemoteAd, RemoteUpdate, CURRENT_APP_VERSION_CODE } from '../types';
 import { fetchRepoDir } from '../services/githubService';
 
 interface PublicHomeProps {
@@ -11,6 +11,7 @@ interface PublicHomeProps {
 }
 
 const STORAGE_KEY_FILES = 'clashhub_cached_files';
+const STORAGE_KEY_SKIP_VERSION = 'clashhub_skip_version';
 
 export const PublicHome: React.FC<PublicHomeProps> = ({ config, sources, customLinks }) => {
   const [repoFiles, setRepoFiles] = useState<RepoFile[]>([]);
@@ -61,13 +62,29 @@ export const PublicHome: React.FC<PublicHomeProps> = ({ config, sources, customL
 
       if (bulletinRes) setBulletin(bulletinRes);
       if (adRes) setAdInfo(adRes);
-      if (updateRes) {
+      
+      if (updateRes && updateRes.show) {
         setUpdateInfo(updateRes);
-        if (updateRes.show) setShowUpdateModal(true);
+        // 核心对比逻辑：远程版本号 > 本地版本号
+        if (updateRes.versionCode > CURRENT_APP_VERSION_CODE) {
+          // 如果不是强制更新，检查用户是否点击过“跳过此版本”
+          const skippedVersion = localStorage.getItem(STORAGE_KEY_SKIP_VERSION);
+          if (updateRes.force || skippedVersion !== String(updateRes.versionCode)) {
+            setShowUpdateModal(true);
+          }
+        }
       }
     } catch (e) {
       console.error("Failed to fetch remote configs", e);
     }
+  };
+
+  const handleSkipUpdate = () => {
+    if (updateInfo) {
+      // 记录用户跳过的版本号
+      localStorage.setItem(STORAGE_KEY_SKIP_VERSION, String(updateInfo.versionCode));
+    }
+    setShowUpdateModal(false);
   };
 
   const sortFiles = (files: RepoFile[]) => {
@@ -185,7 +202,7 @@ export const PublicHome: React.FC<PublicHomeProps> = ({ config, sources, customL
                   立即下载
                 </a>
                 {!updateInfo.force && (
-                  <button onClick={() => setShowUpdateModal(false)} className="px-6 py-4 bg-gray-100 dark:bg-zinc-800 text-gray-400 rounded-2xl font-bold text-sm active:scale-95 transition-transform">
+                  <button onClick={handleSkipUpdate} className="px-6 py-4 bg-gray-100 dark:bg-zinc-800 text-gray-400 rounded-2xl font-bold text-sm active:scale-95 transition-transform">
                     暂不更新
                   </button>
                 )}
@@ -205,7 +222,7 @@ export const PublicHome: React.FC<PublicHomeProps> = ({ config, sources, customL
         </p>
       </div>
 
-      {/* 使用说明 (已合并远程公告内容) */}
+      {/* 使用说明 */}
       <section className="p-5 sm:p-8 rounded-[2rem] bg-day-card dark:bg-night-card border border-black/5 dark:border-white/5 shadow-xl relative overflow-hidden">
         <div className="space-y-5 sm:space-y-8 relative z-10">
           <div className="space-y-3 sm:space-y-4">
@@ -213,8 +230,13 @@ export const PublicHome: React.FC<PublicHomeProps> = ({ config, sources, customL
               {bulletin && bulletin.show ? bulletin.title : '使用说明'}
               {bulletin && bulletin.show && <Megaphone className="w-4 h-4 text-amber-500 animate-pulse" />}
             </h2>
-            <div className="text-[10px] sm:text-xs font-bold text-gray-400 dark:text-zinc-500">
-              更新时间：{updateTime}
+            <div className="flex items-center justify-between">
+               <div className="text-[10px] sm:text-xs font-bold text-gray-400 dark:text-zinc-500">
+                更新时间：{updateTime}
+              </div>
+              <div className="text-[10px] sm:text-xs font-bold text-gray-400/50">
+                v{CURRENT_APP_VERSION_CODE}
+              </div>
             </div>
             
             <div className="space-y-4">
