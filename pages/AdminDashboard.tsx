@@ -47,7 +47,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (passwordInput === 'admin') {
+    if (passwordInput === 'qazwsx') {
       setIsAuthenticated(true);
     } else {
       alert("密码错误");
