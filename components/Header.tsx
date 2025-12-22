@@ -10,7 +10,7 @@ interface HeaderProps {
 
 export const Header: React.FC<HeaderProps> = ({ onOpenAdmin, title }) => {
   return (
-    <header className="sticky top-0 z-50 backdrop-blur-md bg-day-bg/80 dark:bg-night-bg/80 border-b border-black/5 dark:border-white/5">
+    <header className="sticky top-0 z-50 backdrop-blur-md bg-day-bg/80 dark:bg-night-bg/80 border-b border-black/5 dark:border-white/5 pt-[env(safe-area-inset-top)]">
       <div className="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
         <h1 className="text-xl font-bold tracking-tight flex items-center gap-2">
           <Zap className="w-6 h-6 text-day-text dark:text-night-text" />

@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
-import { Database, WifiOff, Loader2 } from 'lucide-react';
-import { AppConfig, CustomLink, RepoFile } from '../types';
+import { Database, WifiOff, Loader2, Megaphone, ArrowRight, Download, X, ExternalLink } from 'lucide-react';
+import { AppConfig, CustomLink, RepoFile, RemoteBulletin, RemoteAd, RemoteUpdate } from '../types';
 import { fetchRepoDir } from '../services/githubService';
 
 interface PublicHomeProps {
@@ -19,6 +19,12 @@ export const PublicHome: React.FC<PublicHomeProps> = ({ config, sources, customL
   const [isError, setIsError] = useState(false);
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
   const [updateTime, setUpdateTime] = useState<string>('');
+
+  // 远程配置状态
+  const [bulletin, setBulletin] = useState<RemoteBulletin | null>(null);
+  const [adInfo, setAdInfo] = useState<RemoteAd | null>(null);
+  const [updateInfo, setUpdateInfo] = useState<RemoteUpdate | null>(null);
+  const [showUpdateModal, setShowUpdateModal] = useState(false);
 
   useEffect(() => {
     const now = new Date();
@@ -39,7 +45,30 @@ export const PublicHome: React.FC<PublicHomeProps> = ({ config, sources, customL
     if (config.repoOwner && config.repoName) {
       loadContent();
     }
+    
+    // 加载远程公告、广告和更新
+    fetchRemoteConfigs();
   }, [config.repoOwner, config.repoName]);
+
+  const fetchRemoteConfigs = async () => {
+    try {
+      const ts = Date.now();
+      const [bulletinRes, adRes, updateRes] = await Promise.all([
+        fetch(`https://clash1.fastkj.eu.org/clashoo/bulletin.json?t=${ts}`).then(r => r.json()).catch(() => null),
+        fetch(`https://clash1.fastkj.eu.org/clashoo/advertise.json?t=${ts}`).then(r => r.json()).catch(() => null),
+        fetch(`https://clash1.fastkj.eu.org/clashoo/Update.json?t=${ts}`).then(r => r.json()).catch(() => null)
+      ]);
+
+      if (bulletinRes) setBulletin(bulletinRes);
+      if (adRes) setAdInfo(adRes);
+      if (updateRes) {
+        setUpdateInfo(updateRes);
+        if (updateRes.show) setShowUpdateModal(true);
+      }
+    } catch (e) {
+      console.error("Failed to fetch remote configs", e);
+    }
+  };
 
   const sortFiles = (files: RepoFile[]) => {
     return [...files].sort((a, b) => {
@@ -120,7 +149,53 @@ export const PublicHome: React.FC<PublicHomeProps> = ({ config, sources, customL
   };
 
   return (
-    <main className="max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-12 space-y-6 sm:space-y-10 animate-fade-in">
+    <main className="max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-12 space-y-6 sm:space-y-10 animate-fade-in relative">
+      
+      {/* 远程更新弹窗 */}
+      {showUpdateModal && updateInfo && (
+        <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-300">
+          <div className="w-full max-w-md bg-white dark:bg-night-card rounded-[2.5rem] shadow-2xl overflow-hidden border border-black/5 dark:border-white/5 animate-in zoom-in-95 duration-300">
+            <div className="relative p-8 space-y-4">
+              {!updateInfo.force && (
+                <button onClick={() => setShowUpdateModal(false)} className="absolute top-6 right-6 p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/5 text-gray-400">
+                  <X className="w-5 h-5" />
+                </button>
+              )}
+              <div className="flex items-center gap-3">
+                <div className="p-3 rounded-2xl bg-day-text/10 dark:bg-night-text/10">
+                   <Download className="w-6 h-6 text-day-text dark:text-night-text" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-black text-day-text dark:text-night-text">发现新版本</h3>
+                  <p className="text-xs font-bold text-gray-400">Version {updateInfo.versionName}</p>
+                </div>
+              </div>
+              <div className="bg-black/5 dark:bg-white/5 p-5 rounded-2xl">
+                <p className="text-sm font-medium leading-relaxed whitespace-pre-line text-gray-600 dark:text-zinc-400">
+                  {updateInfo.content}
+                </p>
+              </div>
+              <div className="flex gap-3 pt-2">
+                <a 
+                  href={updateInfo.url} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="flex-1 py-4 bg-day-text dark:bg-night-text text-white dark:text-night-bg rounded-2xl font-black text-center text-sm shadow-lg shadow-day-text/20 active:scale-95 transition-transform"
+                >
+                  立即下载
+                </a>
+                {!updateInfo.force && (
+                  <button onClick={() => setShowUpdateModal(false)} className="px-6 py-4 bg-gray-100 dark:bg-zinc-800 text-gray-400 rounded-2xl font-bold text-sm active:scale-95 transition-transform">
+                    暂不更新
+                  </button>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 标题区域 */}
       <div className="text-center space-y-2">
         <h2 className="text-2xl font-black tracking-tight sm:text-5xl text-day-text dark:text-night-text">
           Clash节点分享
@@ -130,18 +205,30 @@ export const PublicHome: React.FC<PublicHomeProps> = ({ config, sources, customL
         </p>
       </div>
 
+      {/* 使用说明 (已合并远程公告内容) */}
       <section className="p-5 sm:p-8 rounded-[2rem] bg-day-card dark:bg-night-card border border-black/5 dark:border-white/5 shadow-xl relative overflow-hidden">
         <div className="space-y-5 sm:space-y-8 relative z-10">
           <div className="space-y-3 sm:space-y-4">
-            <h2 className="text-lg sm:text-2xl font-black text-day-text dark:text-night-text">
-              使用说明
+            <h2 className="text-lg sm:text-2xl font-black text-day-text dark:text-night-text flex items-center gap-2">
+              {bulletin && bulletin.show ? bulletin.title : '使用说明'}
+              {bulletin && bulletin.show && <Megaphone className="w-4 h-4 text-amber-500 animate-pulse" />}
             </h2>
             <div className="text-[10px] sm:text-xs font-bold text-gray-400 dark:text-zinc-500">
               更新时间：{updateTime}
             </div>
-            <div className="space-y-2 text-xs sm:text-sm text-gray-500 dark:text-gray-400 leading-relaxed font-medium">
-              <p>写了个自动获取公开节点脚本，该项目自动获取以及自动推送，如果某个订阅源失效请及时反馈以便修复。</p>
-              <p className="font-bold text-day-text dark:text-night-text">域名随时更换</p>
+            
+            <div className="space-y-4">
+              {bulletin && bulletin.show ? (
+                <div className="space-y-2">
+                  <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 leading-relaxed font-medium whitespace-pre-line">
+                    {bulletin.content}
+                  </p>
+                </div>
+              ) : (
+                <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 opacity-50 italic">
+                  暂无远程说明内容
+                </p>
+              )}
             </div>
           </div>
 
@@ -159,7 +246,6 @@ export const PublicHome: React.FC<PublicHomeProps> = ({ config, sources, customL
                     color: '#fff'
                   }}
                 >
-                  <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors" />
                   <div className="w-8 h-8 sm:w-10 sm:h-10 p-1.5 rounded-xl flex items-center justify-center shrink-0 bg-white/20 backdrop-blur-md border border-white/20 shadow-sm relative z-10 overflow-hidden">
                     {link.icon && isUrl(link.icon) ? (
                       <img src={link.icon} alt={link.name} className="w-full h-full object-contain" />
@@ -179,6 +265,26 @@ export const PublicHome: React.FC<PublicHomeProps> = ({ config, sources, customL
         </div>
       </section>
 
+      {/* 广告位 */}
+      {adInfo && adInfo.clashads.show && (
+        <div className="animate-fade-in group">
+          <a 
+            href={adInfo.clashads.link} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="block relative w-full overflow-hidden rounded-[2rem] sm:rounded-[2.5rem] shadow-lg border border-black/5 dark:border-white/5 active:scale-[0.98] transition-all"
+          >
+            <img 
+              src={adInfo.clashads.image} 
+              alt="Promotion" 
+              className="w-full h-auto object-cover max-h-[180px] group-hover:scale-[1.02] transition-transform duration-700"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent pointer-events-none" />
+          </a>
+        </div>
+      )}
+
+      {/* 订阅列表区域 */}
       <section className="space-y-4 sm:space-y-6">
         <div className="flex items-center justify-between px-1">
           <h3 className="text-lg sm:text-xl font-bold text-day-text dark:text-night-text flex items-center gap-2">

@@ -169,7 +169,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 
   if (!isAuthenticated) {
     return (
-      <div className="fixed inset-0 z-[100] bg-day-bg dark:bg-night-bg flex items-center justify-center p-4">
+      <div className="fixed inset-0 z-[100] bg-day-bg dark:bg-night-bg flex items-center justify-center p-4 pt-[env(safe-area-inset-top)]">
         <div className="w-full max-w-[360px] p-6 sm:p-8 bg-day-card dark:bg-night-card border border-black/5 dark:border-white/5 rounded-[2rem] sm:rounded-[2.5rem] shadow-2xl">
           <div className="text-center mb-6 sm:mb-8">
              <ShieldCheck className="w-10 h-10 sm:w-12 sm:h-12 text-day-text dark:text-night-text mx-auto mb-3" />
@@ -194,30 +194,32 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   return (
     <div className="fixed inset-0 z-[100] bg-day-bg dark:bg-night-bg overflow-y-auto pb-10">
       <div className="max-w-6xl mx-auto p-4 sm:p-8 space-y-4 sm:space-y-8 animate-fade-in">
-        <div className="flex items-center justify-between border-b border-black/5 dark:border-white/5 pb-4 sm:pb-6 sticky top-0 bg-day-bg/80 dark:bg-night-bg/80 backdrop-blur-lg z-20">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-day-text dark:bg-night-text text-day-bg dark:text-night-bg flex items-center justify-center">
-              <Settings2 className="w-4 h-4 sm:w-5 sm:h-5" />
+        <div className="flex flex-col border-b border-black/5 dark:border-white/5 sticky top-0 bg-day-bg/80 dark:bg-night-bg/80 backdrop-blur-lg z-20 pt-[env(safe-area-inset-top)]">
+          <div className="flex items-center justify-between pb-4 sm:pb-6">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-day-text dark:bg-night-text text-day-bg dark:text-night-bg flex items-center justify-center">
+                <Settings2 className="w-4 h-4 sm:w-5 sm:h-5" />
+              </div>
+              <h2 className="text-base sm:text-xl font-black truncate">后台管理</h2>
             </div>
-            <h2 className="text-base sm:text-xl font-black truncate">后台管理</h2>
-          </div>
-          
-          <div className="flex items-center gap-2">
-            <button 
-              onClick={handleSaveAndSync} 
-              disabled={isProcessing} 
-              className={`flex items-center gap-1.5 px-3 sm:px-6 py-2 sm:py-3.5 rounded-lg sm:rounded-xl font-black text-[10px] sm:text-sm transition-all shadow-md ${
-                isProcessing 
-                ? 'bg-zinc-200 dark:bg-zinc-800 text-zinc-500 cursor-not-allowed' 
-                : 'bg-day-text dark:bg-night-text text-day-bg dark:text-night-bg hover:opacity-90 active:scale-95'
-              }`}
-            >
-              {isProcessing ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Save className="w-3.5 h-3.5" />}
-              <span>{isProcessing ? '同步中' : '同步云端'}</span>
-            </button>
-            <button onClick={onClose} className="p-1.5 text-gray-400 hover:text-day-text transition-colors">
-              <X className="w-6 h-6" />
-            </button>
+            
+            <div className="flex items-center gap-2">
+              <button 
+                onClick={handleSaveAndSync} 
+                disabled={isProcessing} 
+                className={`flex items-center gap-1.5 px-3 sm:px-6 py-2 sm:py-3.5 rounded-lg sm:rounded-xl font-black text-[10px] sm:text-sm transition-all shadow-md ${
+                  isProcessing 
+                  ? 'bg-zinc-200 dark:bg-zinc-800 text-zinc-500 cursor-not-allowed' 
+                  : 'bg-day-text dark:bg-night-text text-day-bg dark:text-night-bg hover:opacity-90 active:scale-95'
+                }`}
+              >
+                {isProcessing ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Save className="w-3.5 h-3.5" />}
+                <span>{isProcessing ? '同步中' : '同步云端'}</span>
+              </button>
+              <button onClick={onClose} className="p-1.5 text-gray-400 hover:text-day-text transition-colors">
+                <X className="w-6 h-6" />
+              </button>
+            </div>
           </div>
         </div>
 

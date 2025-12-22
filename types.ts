@@ -28,10 +28,28 @@ export interface RepoFile {
   type: 'file' | 'dir';
 }
 
-export interface SourceMap {
+export interface RemoteBulletin {
   id: string;
-  sourceUrl: string; 
-  targetFilename: string; 
+  title: string;
+  content: string;
+  show: boolean;
+}
+
+export interface RemoteAd {
+  clashads: {
+    image: string;
+    link: string;
+    show: boolean;
+  }
+}
+
+export interface RemoteUpdate {
+  versionCode: number;
+  versionName: string;
+  content: string;
+  url: string;
+  force: boolean;
+  show: boolean;
 }
 
 // 默认的公开读取权限仓库
@@ -42,4 +60,3 @@ export const DEFAULT_REPO = "neatfreeoo";
 export const DEFAULT_DOMAIN = "https://clash1.fastkj.eu.org";
 
 export const DEFAULT_SOURCES: string[] = [];
-
