@@ -166,7 +166,7 @@ export const PublicHome: React.FC<PublicHomeProps> = ({ config, sources, customL
   };
 
   return (
-    <main className="max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-12 space-y-6 sm:space-y-10 animate-fade-in relative">
+    <main className="max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-12 space-y-6 sm:space-y-10 animate-fade-in relative overflow-x-hidden">
       
       {/* 远程更新弹窗 */}
       {showUpdateModal && updateInfo && (
@@ -255,14 +255,14 @@ export const PublicHome: React.FC<PublicHomeProps> = ({ config, sources, customL
           </div>
 
           {customLinks.length > 0 && (
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 pt-2">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 pt-2 w-full">
               {customLinks.map((link) => (
                 <a
                   key={link.id}
                   href={link.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group relative flex items-center gap-3 p-2.5 rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 border border-white/10 overflow-hidden"
+                  className="group relative flex items-center gap-2.5 p-2 sm:p-2.5 rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 border border-white/10 overflow-hidden"
                   style={{ 
                     backgroundColor: link.color || '#3b82f6',
                     color: '#fff'
@@ -276,7 +276,7 @@ export const PublicHome: React.FC<PublicHomeProps> = ({ config, sources, customL
                     )}
                   </div>
                   <div className="flex-1 min-w-0 relative z-10">
-                    <span className="font-black text-xs sm:text-sm truncate block tracking-tight">
+                    <span className="font-black text-[10px] sm:text-sm truncate block tracking-tight">
                       {link.name}
                     </span>
                   </div>
@@ -330,7 +330,7 @@ export const PublicHome: React.FC<PublicHomeProps> = ({ config, sources, customL
             const isCopied = copiedIndex === index;
 
             return (
-              <div key={file.name} className="p-6 sm:p-8 rounded-[2rem] sm:rounded-[2.5rem] bg-day-card dark:bg-night-card shadow-lg border border-black/[0.03] dark:border-white/5 transition-all duration-300 group">
+              <div key={file.name} className="p-4 sm:p-8 rounded-[2rem] sm:rounded-[2.5rem] bg-day-card dark:bg-night-card shadow-lg border border-black/[0.03] dark:border-white/5 transition-all duration-300 group overflow-hidden">
                 <div className="mb-4">
                   <span className="font-black text-day-text dark:text-night-text text-base sm:text-xl truncate block">
                     {file.name}
@@ -339,7 +339,7 @@ export const PublicHome: React.FC<PublicHomeProps> = ({ config, sources, customL
                 
                 <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 items-stretch">
                   <div className="flex-1 min-w-0">
-                    <div className="h-full flex items-center text-[10px] sm:text-xs font-mono text-gray-400 dark:text-zinc-500 break-all bg-black/5 dark:bg-white/5 px-4 py-3 sm:py-3.5 rounded-xl sm:rounded-2xl border border-black/5 dark:border-white/5 min-h-[44px] sm:min-h-[52px]">
+                    <div className="h-full flex items-center text-[10px] sm:text-xs font-mono text-gray-400 dark:text-zinc-500 break-all bg-black/5 dark:bg-white/5 px-4 py-3 sm:py-3.5 rounded-xl sm:rounded-2xl border border-black/5 dark:border-white/5 min-h-[44px] sm:min-h-[52px] overflow-hidden">
                       {subUrl}
                     </div>
                   </div>

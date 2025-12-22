@@ -53,7 +53,7 @@ export interface RemoteUpdate {
 }
 
 // 本地当前版本号 (当你发布新版代码时，修改这个数字)
-export const CURRENT_APP_VERSION_CODE = 111;
+export const CURRENT_APP_VERSION_CODE = 110;
 
 // 默认的公开读取权限仓库
 export const DEFAULT_OWNER = "fastkj";

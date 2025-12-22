@@ -1,8 +1,8 @@
 
 import React, { useState, useEffect } from 'react';
-import { RefreshCw, Plus, Trash2, Github, Link as LinkIcon, X, Settings2, ShieldCheck, Link2, Edit3, Save, Loader2, Clock } from 'lucide-react';
+import { RefreshCw, Plus, Trash2, Github, Link as LinkIcon, X, Settings2, ShieldCheck, Link2, Edit3, Save, Loader2, Clock, DownloadCloud } from 'lucide-react';
 import { AppConfig, CustomLink, RepoFile, DEFAULT_SOURCES } from '../types';
-import { fetchRawContent, getRepoFile, uploadToRepo, saveCustomLinks, saveSources, fetchRepoDir, deleteRepoFile } from '../services/githubService';
+import { fetchRawContent, getRepoFile, uploadToRepo, saveCustomLinks, saveSources, fetchRepoDir, deleteRepoFile, fetchCustomLinks, fetchSources } from '../services/githubService';
 
 interface AdminDashboardProps {
   config: AppConfig;
@@ -13,6 +13,8 @@ interface AdminDashboardProps {
   onCustomLinksChange: (newLinks: CustomLink[]) => void;
   onClose: () => void;
 }
+
+const STORAGE_CONFIG = 'clashhub_config_v3';
 
 export const AdminDashboard: React.FC<AdminDashboardProps> = ({ 
   config, 
@@ -26,6 +28,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [passwordInput, setPasswordInput] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
+  const [isPulling, setIsPulling] = useState(false);
   const [logs, setLogs] = useState<string[]>([]);
   const [localConfig, setLocalConfig] = useState<AppConfig>(config);
   const [localSources, setLocalSources] = useState<string[]>(sources.length ? sources : DEFAULT_SOURCES);
@@ -58,7 +61,56 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
     setRepoPath(val);
     if (val.includes('/')) {
       const [owner, repo] = val.split('/').map(s => s.trim());
-      setLocalConfig(prev => ({ ...prev, repoOwner: owner || '', repoName: repo || '' }));
+      const updated = { ...localConfig, repoOwner: owner || '', repoName: repo || '' };
+      setLocalConfig(updated);
+      localStorage.setItem(STORAGE_CONFIG, JSON.stringify(updated));
+      onConfigChange(updated);
+    }
+  };
+
+  const handleTokenChange = (val: string) => {
+    const updated = { ...localConfig, githubToken: val };
+    setLocalConfig(updated);
+    localStorage.setItem(STORAGE_CONFIG, JSON.stringify(updated));
+    onConfigChange(updated);
+  };
+
+  const handlePullFromCloud = async () => {
+    if (!localConfig.githubToken || !localConfig.repoName || !localConfig.repoOwner) {
+      alert("请先填写 GitHub Token 和仓库路径");
+      return;
+    }
+
+    setIsPulling(true);
+    setLogs([]);
+    addLog("☁️ 开始从云端拉取配置...");
+
+    try {
+      // 1. 拉取快捷按钮
+      addLog("🔍 正在拉取快捷按钮配置...");
+      const remoteLinks = await fetchCustomLinks(localConfig);
+      if (remoteLinks && Array.isArray(remoteLinks)) {
+        setLocalLinks(remoteLinks);
+        onCustomLinksChange(remoteLinks);
+        addLog(`✅ 已获取 ${remoteLinks.length} 个快捷按钮`);
+      }
+
+      // 2. 拉取订阅源
+      addLog("🔍 正在拉取订阅源配置...");
+      const remoteSources = await fetchSources(localConfig);
+      if (remoteSources && Array.isArray(remoteSources)) {
+        setLocalSources(remoteSources);
+        onSourcesChange(remoteSources);
+        addLog(`✅ 已获取 ${remoteSources.length} 个订阅源`);
+      }
+
+      addLog("✨ 云端数据同步至本地成功！");
+      alert("拉取成功！已同步云端配置到当前设备。");
+    } catch (err: any) {
+      addLog(`❌ 拉取失败: ${err.message}`);
+      alert(`拉取失败: ${err.message}`);
+    } finally {
+      setIsPulling(false);
     }
   };
 
@@ -170,7 +222,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   if (!isAuthenticated) {
     return (
       <div className="fixed inset-0 z-[100] bg-day-bg dark:bg-night-bg flex items-center justify-center p-4 pt-[env(safe-area-inset-top)]">
-        <div className="w-full max-w-[360px] p-6 sm:p-8 bg-day-card dark:bg-night-card border border-black/5 dark:border-white/5 rounded-[2rem] sm:rounded-[2.5rem] shadow-2xl">
+        <div className="w-full max-w-[360px] p-6 sm:p-8 bg-day-card dark:bg-night-card border border-black/5 dark:border-white/5 rounded-[2.5rem] sm:rounded-[2.5rem] shadow-2xl">
           <div className="text-center mb-6 sm:mb-8">
              <ShieldCheck className="w-10 h-10 sm:w-12 sm:h-12 text-day-text dark:text-night-text mx-auto mb-3" />
              <h2 className="text-lg sm:text-xl font-black">管理后台登录</h2>
@@ -192,8 +244,8 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   }
 
   return (
-    <div className="fixed inset-0 z-[100] bg-day-bg dark:bg-night-bg overflow-y-auto pb-10">
-      <div className="max-w-6xl mx-auto p-4 sm:p-8 space-y-4 sm:space-y-8 animate-fade-in">
+    <div className="fixed inset-0 z-[100] bg-day-bg dark:bg-night-bg overflow-y-auto pb-10 overflow-x-hidden">
+      <div className="max-w-6xl mx-auto px-3 sm:px-8 py-4 sm:py-8 space-y-4 sm:space-y-8 animate-fade-in w-full overflow-hidden">
         <div className="flex flex-col border-b border-black/5 dark:border-white/5 sticky top-0 bg-day-bg/80 dark:bg-night-bg/80 backdrop-blur-lg z-20 pt-[env(safe-area-inset-top)]">
           <div className="flex items-center justify-between pb-4 sm:pb-6">
             <div className="flex items-center gap-2">
@@ -204,9 +256,23 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
             </div>
             
             <div className="flex items-center gap-2">
+              {/* 拉取按钮 */}
+              <button 
+                onClick={handlePullFromCloud} 
+                disabled={isPulling || isProcessing} 
+                className={`flex items-center gap-1.5 px-3 sm:px-5 py-2 sm:py-3.5 rounded-lg sm:rounded-xl font-black text-[10px] sm:text-sm transition-all border ${
+                  isPulling 
+                  ? 'bg-zinc-100 dark:bg-zinc-800 text-zinc-400 border-transparent cursor-not-allowed' 
+                  : 'bg-white dark:bg-zinc-900 text-day-text dark:text-night-text border-black/10 dark:border-white/10 hover:bg-black/5 active:scale-95'
+                }`}
+              >
+                {isPulling ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <DownloadCloud className="w-3.5 h-3.5" />}
+                <span>{isPulling ? '拉取中' : '拉取配置'}</span>
+              </button>
+
               <button 
                 onClick={handleSaveAndSync} 
-                disabled={isProcessing} 
+                disabled={isProcessing || isPulling} 
                 className={`flex items-center gap-1.5 px-3 sm:px-6 py-2 sm:py-3.5 rounded-lg sm:rounded-xl font-black text-[10px] sm:text-sm transition-all shadow-md ${
                   isProcessing 
                   ? 'bg-zinc-200 dark:bg-zinc-800 text-zinc-500 cursor-not-allowed' 
@@ -223,10 +289,10 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
           </div>
         </div>
 
-        <div className="grid gap-4 sm:gap-6 lg:grid-cols-12">
+        <div className="grid gap-4 sm:gap-6 lg:grid-cols-12 w-full overflow-hidden">
           {/* 配置 & 日志 */}
           <div className="lg:col-span-12 grid gap-4 sm:gap-6 md:grid-cols-2">
-            <section className="bg-day-card dark:bg-night-card p-4 sm:p-6 rounded-[1.5rem] sm:rounded-[2rem] border border-black/5 dark:border-white/5 shadow-sm space-y-4">
+            <section className="bg-day-card dark:bg-night-card p-4 sm:p-6 rounded-[1.5rem] sm:rounded-[2rem] border border-black/5 dark:border-white/5 shadow-sm space-y-4 overflow-hidden">
               <h3 className="font-black text-sm sm:text-base flex items-center gap-2 uppercase tracking-tight">
                 <Github className="w-4 h-4 text-gray-400" /> GitHub 配置
               </h3>
@@ -237,7 +303,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                 </div>
                 <div className="space-y-1">
                   <label className="text-[10px] font-bold text-gray-400 uppercase px-1">GitHub Access Token</label>
-                  <input type="password" className="w-full px-3 py-2.5 rounded-lg bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/10 outline-none font-mono text-xs focus:ring-1 focus:ring-day-text/20" value={localConfig.githubToken} onChange={e => setLocalConfig({...localConfig, githubToken: e.target.value})} placeholder="建议仅启用 contents 权限" />
+                  <input type="password" className="w-full px-3 py-2.5 rounded-lg bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/10 outline-none font-mono text-xs focus:ring-1 focus:ring-day-text/20" value={localConfig.githubToken} onChange={e => handleTokenChange(e.target.value)} placeholder="输入后自动保存至浏览器" />
                 </div>
                 
                 <div className="flex items-center justify-between p-3 bg-black/5 dark:bg-white/5 rounded-xl border border-black/5">
@@ -246,7 +312,12 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                     <span className="text-[11px] font-black">24小时自动推送</span>
                   </div>
                   <button 
-                    onClick={() => setLocalConfig({...localConfig, autoPushEnabled: !localConfig.autoPushEnabled})}
+                    onClick={() => {
+                      const updated = {...localConfig, autoPushEnabled: !localConfig.autoPushEnabled};
+                      setLocalConfig(updated);
+                      localStorage.setItem(STORAGE_CONFIG, JSON.stringify(updated));
+                      onConfigChange(updated);
+                    }}
                     className={`relative inline-flex h-5 w-10 items-center rounded-full transition-colors focus:outline-none ${localConfig.autoPushEnabled ? 'bg-day-text dark:bg-night-text' : 'bg-gray-200 dark:bg-zinc-700'}`}
                   >
                     <span className={`inline-block h-3.5 w-3.5 transform rounded-full bg-white dark:bg-night-bg transition-transform ${localConfig.autoPushEnabled ? 'translate-x-5' : 'translate-x-1'}`} />
@@ -255,7 +326,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
               </div>
             </section>
 
-            <section className="bg-day-card dark:bg-night-card p-4 sm:p-6 rounded-[1.5rem] sm:rounded-[2rem] border border-black/5 dark:border-white/5 shadow-sm space-y-4">
+            <section className="bg-day-card dark:bg-night-card p-4 sm:p-6 rounded-[1.5rem] sm:rounded-[2rem] border border-black/5 dark:border-white/5 shadow-sm space-y-4 overflow-hidden">
               <h3 className="font-black text-sm sm:text-base flex items-center gap-2 uppercase tracking-tight">
                 <RefreshCw className="w-4 h-4 text-gray-400" /> 操作日志
               </h3>
@@ -266,7 +337,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
           </div>
 
           {/* 订阅源列表 */}
-          <section className="lg:col-span-7 bg-day-card dark:bg-night-card p-4 sm:p-6 rounded-[1.5rem] sm:rounded-[2rem] border border-black/5 dark:border-white/5 shadow-sm space-y-4">
+          <section className="lg:col-span-7 bg-day-card dark:bg-night-card p-4 sm:p-6 rounded-[1.5rem] sm:rounded-[2rem] border border-black/5 dark:border-white/5 shadow-sm space-y-4 overflow-hidden">
             <div className="flex justify-between items-center">
               <h3 className="font-black text-sm sm:text-base flex items-center gap-2 uppercase tracking-tight"><Link2 className="w-4 h-4 text-gray-400" /> 订阅源列表</h3>
               <div className="flex gap-2">
@@ -294,10 +365,10 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 
             <div className="space-y-2">
               {localSources.map((url, i) => (
-                <div key={i} className="flex gap-2 items-center bg-black/5 dark:bg-white/5 p-2 rounded-xl border border-black/5 transition-all group">
+                <div key={i} className="flex gap-2 items-center bg-black/5 dark:bg-white/5 p-2 rounded-xl border border-black/5 transition-all group overflow-hidden">
                   <span className="w-6 h-6 rounded-lg bg-white dark:bg-black text-[9px] font-black flex items-center justify-center text-gray-400 shrink-0 border border-black/5">{i+1}</span>
-                  <input className="flex-1 text-[11px] bg-transparent border-none outline-none font-mono truncate focus:ring-0" value={url} onChange={e => updateSource(i, e.target.value)} placeholder="https://..." />
-                  <button onClick={() => removeSource(i)} className="p-1.5 text-gray-300 hover:text-red-500 transition-colors sm:opacity-0 group-hover:opacity-100"><Trash2 className="w-3.5 h-3.5" /></button>
+                  <input className="flex-1 min-w-0 text-[11px] bg-transparent border-none outline-none font-mono truncate focus:ring-0" value={url} onChange={e => updateSource(i, e.target.value)} placeholder="https://..." />
+                  <button onClick={() => removeSource(i)} className="p-1.5 text-gray-300 hover:text-red-500 transition-colors sm:opacity-0 group-hover:opacity-100 shrink-0"><Trash2 className="w-3.5 h-3.5" /></button>
                 </div>
               ))}
               {localSources.length === 0 && (
@@ -307,7 +378,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
           </section>
 
           {/* 快捷按钮 */}
-          <section className="lg:col-span-5 bg-day-card dark:bg-night-card p-4 sm:p-6 rounded-[1.5rem] sm:rounded-[2rem] border border-black/5 dark:border-white/5 shadow-sm space-y-4">
+          <section className="lg:col-span-5 bg-day-card dark:bg-night-card p-4 sm:p-6 rounded-[1.5rem] sm:rounded-[2rem] border border-black/5 dark:border-white/5 shadow-sm space-y-4 overflow-hidden">
              <div className="flex justify-between items-center">
                 <h3 className="font-black text-sm sm:text-base flex items-center gap-2 uppercase tracking-tight"><LinkIcon className="w-4 h-4 text-gray-400" /> 快捷按钮</h3>
                 <button onClick={handleAddLink} className="p-1.5 bg-day-text dark:bg-night-text text-day-bg dark:text-night-bg rounded-lg hover:opacity-90"><Plus className="w-4 h-4" /></button>
@@ -315,19 +386,19 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
              
              <div className="grid gap-2">
                {localLinks.map((link) => (
-                 <div key={link.id} className="p-2.5 bg-black/5 dark:bg-white/5 rounded-xl border border-black/5 flex items-center gap-3 group transition-all hover:border-day-text/20">
-                    <div className="w-10 h-10 p-1.5 rounded-lg flex items-center justify-center shrink-0 border border-white/10 shadow-sm" style={{ backgroundColor: link.color }}>
+                 <div key={link.id} className="p-2 sm:p-2.5 bg-black/5 dark:bg-white/5 rounded-xl border border-black/5 flex items-center gap-2 sm:gap-3 group transition-all hover:border-day-text/20 overflow-hidden">
+                    <div className="w-9 h-9 sm:w-10 sm:h-10 p-1.5 rounded-lg flex items-center justify-center shrink-0 border border-white/10 shadow-sm" style={{ backgroundColor: link.color }}>
                       {link.icon && isUrl(link.icon) ? (
                         <img src={link.icon} alt={link.name} className="w-full h-full object-contain" />
                       ) : (
-                        <span className="text-white drop-shadow-sm text-base">{link.icon || '🔗'}</span>
+                        <span className="text-white drop-shadow-sm text-sm sm:text-base">{link.icon || '🔗'}</span>
                       )}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-[11px] font-black truncate">{link.name}</p>
-                      <p className="text-[9px] text-gray-400 truncate opacity-60 leading-tight">{link.url}</p>
+                      <p className="text-[10px] sm:text-[11px] font-black truncate">{link.name}</p>
+                      <p className="text-[8px] sm:text-[9px] text-gray-400 truncate opacity-60 leading-tight">{link.url}</p>
                     </div>
-                    <div className="flex items-center gap-0.5 sm:opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div className="flex items-center gap-0.5 shrink-0 opacity-100 sm:opacity-0 group-hover:opacity-100 transition-opacity">
                       <button onClick={() => setEditingLink({...link})} className="p-1.5 text-gray-400 hover:text-day-text"><Edit3 className="w-3.5 h-3.5" /></button>
                       <button onClick={() => removeLink(link.id)} className="p-1.5 text-gray-400 hover:text-red-500"><Trash2 className="w-3.5 h-3.5" /></button>
                     </div>
@@ -344,7 +415,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
       {/* 按钮编辑模态框 */}
       {editingLink && (
         <div className="fixed inset-0 z-[110] bg-black/70 backdrop-blur-md flex items-center justify-center p-4 animate-fade-in overflow-y-auto">
-          <div className="w-full max-w-[340px] my-auto bg-day-bg dark:bg-night-card rounded-[2rem] shadow-2xl p-6 space-y-5 border border-white/10">
+          <div className="w-full max-w-[340px] my-auto bg-day-bg dark:bg-night-card rounded-[2rem] shadow-2xl p-6 space-y-5 border border-white/10 overflow-hidden">
             <div className="flex justify-between items-center">
               <h4 className="text-base font-black">配置快捷按钮</h4>
               <button onClick={() => setEditingLink(null)} className="p-1.5 text-gray-400 hover:bg-black/5 rounded-full"><X className="w-5 h-5" /></button>
@@ -362,8 +433,19 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                 <div className="flex-1 space-y-1">
                   <label className="text-[9px] font-black text-zinc-400 uppercase tracking-widest">配色方案</label>
                   <div className="flex items-center gap-2">
-                    <input type="color" className="w-8 h-6 rounded cursor-pointer border-none bg-transparent p-0" value={editingLink.color} onChange={e => setEditingLink({...editingLink, color: e.target.value})} />
-                    <span className="text-[10px] font-mono opacity-40 uppercase">{editingLink.color}</span>
+                    <input 
+                      type="color" 
+                      className="w-8 h-8 rounded cursor-pointer border-none bg-transparent p-0" 
+                      value={editingLink.color} 
+                      onChange={e => setEditingLink({...editingLink, color: e.target.value})} 
+                    />
+                    <input 
+                      type="text"
+                      className="flex-1 min-w-0 px-2.5 py-1.5 text-[11px] font-mono bg-white dark:bg-black/30 border border-black/10 rounded-lg outline-none focus:ring-1 focus:ring-day-text/30 uppercase"
+                      value={editingLink.color}
+                      onChange={e => setEditingLink({...editingLink, color: e.target.value})}
+                      placeholder="#FFFFFF"
+                    />
                   </div>
                 </div>
               </div>
